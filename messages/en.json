@@ -1,0 +1,16 @@
+{
+    "smartTools": "Smart Tools for Smarter Healthcare.",
+    "welcomeBack": "Welcome Back!",
+    "description": "A new day, a new opportunity to make a difference. Stay on top of your schedule and keep delivering the best care possible!",
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password"
+    },
+    "login": "Login",
+    "Products": "Products"
+  }
+  

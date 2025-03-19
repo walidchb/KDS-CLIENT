@@ -9,19 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.2.3"
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@headlessui/react": "^2.2.0",
+    "@next/font": "^14.2.15",
+    "@svgr/webpack": "^8.1.0",
+    "embla-carousel-react": "^8.5.2",
+    "formik": "^2.4.6",
+    "moment": "^2.30.1",
+    "next": "15.0.0-canary.93",
+    "next-intl": "^3.26.3",
+    "react": "19.0.0-rc-e56f4ae3-20240830",
+    "react-dom": "19.0.0-rc-e56f4ae3-20240830",
+    "react-icons": "^5.4.0",
+    "yup": "^1.6.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

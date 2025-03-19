@@ -1,0 +1,17 @@
+{
+    "smartTools": "Des outils intelligents pour des soins de santé plus intelligents.",
+    "welcomeBack": "Bon retour !",
+    "description": "Un nouveau jour, une nouvelle opportunité de faire la différence. Restez maître de votre emploi du temps et continuez à offrir les meilleurs soins possibles !",
+    "username": {
+      "label": "Nom d'utilisateur",
+      "placeholder": "Entrez votre nom d'utilisateur"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "Entrez votre mot de passe"
+    },
+    "login": "Connexion",
+    "Products": "Products"
+
+  }
+  
