@@ -1,12 +1,16 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import LoopersectiontwogreyleftBottom from "../assets/svg/loopersectiontwogreyleftBottom.svg";
 import LoopersectiontwogreyrightTop from "../assets/svg/loopersectiontwogreyrightTop.svg";
 import LoopersectiontworedleftTop from "../assets/svg/loopersectiontworedleftTop.svg";
 import LoopersectiontworedrightBottom from "../assets/svg/loopersectiontworedrightBottom.svg";
 import { FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 const SectionTwo = () => {
+  const Router = useRouter();
+  const locale = useLocale();
   return (
     <div className="w-full bg-gray-100 h-[550px] px-[20px] md:px[100px] lg:px-[200px] relative">
       <div style={{ zIndex: 1, position: "absolute", bottom: "0", left: "0" }}>
@@ -37,7 +41,10 @@ const SectionTwo = () => {
           quis tempor.
         </p>
         <div className="w-full flex justify-end">
-          <button className="flex cursor-pointer items-center gap-2 px-6 py-3 bg-red-700 text-white rounded-full hover:bg-gray-700 transition-all duration-300">
+          <button
+            onClick={() => Router.push(`/${locale}/products`)}
+            className="flex cursor-pointer items-center gap-2 px-6 py-3 bg-red-700 text-white rounded-full hover:bg-gray-700 transition-all duration-300"
+          >
             <span>See Products</span>
             <span className="transform transition-transform duration-300 group-hover:translate-x-2">
               <i className="text-lg">
