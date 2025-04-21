@@ -7,20 +7,25 @@ import { LuHeadphones } from "react-icons/lu";
 import LogoKdsFooter from "../assets/svg/LogoKdsFooter.svg";
 import Loopergreyleftfooter from "../assets/svg/Loopergreyleftfooter.svg";
 import LooperRedRightFooter from "../assets/svg/LooperRedRightFooter.svg";
+import { VscSend } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 // import LogoKdsFooterWeb from "../assets/svg/LogoKdsFooterWeb.svg";
 // import LogoKdsFooterMobile from "../assets/svg/LogoKdsFooterMobile.svg";
 import { FiPhone } from "react-icons/fi";
 
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 
 interface FooterProps {
-  random?: number;
+  showContact?: boolean;
 }
 
-const Footer: React.FC<FooterProps> = ({}) => {
-  const t = useTranslations();
+const Footer: React.FC<FooterProps> = ({ showContact }) => {
+  // const t = useTranslations();
+  const router = useRouter();
 
+  const locale = useLocale();
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
@@ -89,6 +94,24 @@ const Footer: React.FC<FooterProps> = ({}) => {
       <div style={{ zIndex: 1, position: "absolute", bottom: "0", right: "0" }}>
         <LooperRedRightFooter />
       </div>
+      {showContact && (
+        <div className="absolute right-0 -top-[35px] w-full flex justify-center items-center">
+          <div className="flex w-[90%] sm:w-[80%] justify-between items-center px-4 sm:px-20 h-[70px] rounded-xl bg-gray-600 text-white">
+            <h3 className="text-md sm:text-xl">Contact us via e-mail</h3>
+            <button
+              onClick={() => router.push(`/${locale}/contact`)}
+              className="flex cursor-pointer items-center gap-2 px-2 sm:px-6 py-1 sm:py-3 bg-red-700 text-white rounded-full hover:bg-gray-700 transition-all duration-300"
+            >
+              <span>Contact us</span>
+              <span className="transform transition-transform duration-300 group-hover:translate-x-2">
+                <i className="text-lg">
+                  <VscSend />
+                </i>
+              </span>
+            </button>
+          </div>
+        </div>
+      )}
       <div style={{ zIndex: 2 }} className="mx-auto max-w-screen-xl">
         <div className="flex justify-around items-start flex-wrap">
           <div className="  flex justify-center items-center min-w-[300px] ">
@@ -97,7 +120,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
           <div
             className={`w-[${(
               windowWidth - 300
-            ).toString()}px] flex flex-wrap justify-center sm:justify-start items-start gap-8 `}
+            ).toString()}px] flex flex-wrap justify-center md:justify-start items-start gap-8 `}
           >
             {footerSections.map((section, index) => (
               <div className="mt-[30px] w-[200px]" key={index}>
@@ -123,9 +146,9 @@ const Footer: React.FC<FooterProps> = ({}) => {
         </div>
         <div className="mt-[30px] flex w-full  items-center justify-center">
           <span className="text-sm text-red-500 sm:text-center ">
-            © 2022{" "}
+            © 2025{" "}
             <a href="https://flowbite.com" className="hover:underline">
-              Flowbite™
+              KDS
             </a>
             . All Rights Reserved.
           </span>

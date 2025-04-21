@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Locale, routing } from "@/i18n/routing";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // // import { notFound } from "next/navigation";
 // import { routing, Locale } from "@/i18n/routing";
 // import { Geist, Geist_Mono } from "next/font/google";

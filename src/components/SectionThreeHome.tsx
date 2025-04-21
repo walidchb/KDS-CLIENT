@@ -1,83 +1,130 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import ProductCard from "./ProductCard";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
+import LooperRedTopLeftSectionThree from "../assets/svg/looperRedTopLeftSectionThree.svg";
+import LooperGreyTopRightSectionThree from "../assets/svg/looperGreyTopRightSectionThree.svg";
 
-const images = ["/photo4.jpg", "/photo1.jpg", "/photo2.jpg", "/photo3.jpg"];
+const ScaleCarousel = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "center",
+    containScroll: false,
+  });
 
-const SectionOne = () => {
-  const [emblaRef, embla] = useEmblaCarousel({ loop: true });
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
-  // Auto play effect
+  const findCenteredSlide = useCallback(() => {
+    if (!emblaApi) return;
+
+    const viewport = emblaApi.rootNode().getBoundingClientRect();
+    const slides = emblaApi.slideNodes();
+
+    let closestIndex = 0;
+    let smallestDistance = Infinity;
+
+    slides.forEach((slide, index) => {
+      const rect = slide.getBoundingClientRect();
+      const slideCenter = rect.left + rect.width / 2;
+      const viewportCenter = viewport.left + viewport.width / 2;
+      const distance = Math.abs(viewportCenter - slideCenter);
+
+      if (distance < smallestDistance) {
+        smallestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setCenteredIndex(closestIndex);
+  }, [emblaApi]);
+
   useEffect(() => {
-    if (!embla) return;
-    const interval = setInterval(() => {
-      embla.scrollNext();
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [embla]);
+    if (!emblaApi) return;
 
-  // Update selected index
-  const onSelect = useCallback(() => {
-    if (!embla) return;
-    setSelectedIndex(embla.selectedScrollSnap());
-  }, [embla]);
+    // Scroll to the middle product
+    const middleIndex = Math.floor(products.length / 2);
+    emblaApi.scrollTo(middleIndex);
 
-  useEffect(() => {
-    if (!embla) return;
-    embla.on("select", onSelect);
-    onSelect();
-  }, [embla, onSelect]);
+    // Setup listeners after initial scroll
+    findCenteredSlide();
+    emblaApi.on("select", findCenteredSlide);
+    emblaApi.on("scroll", findCenteredSlide);
+    emblaApi.on("resize", findCenteredSlide);
+  }, [emblaApi, findCenteredSlide]);
+
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
+
+  const products = Array.from({ length: 20 }, (_, index) => ({
+    name: `Product ${index + 1}`,
+    images: [
+      `https://picsum.photos/200/300?random=${index * 3 + 1}`,
+      `https://picsum.photos/200/300?random=${index * 3 + 2}`,
+      `https://picsum.photos/200/300?random=${index * 3 + 3}`,
+    ],
+  }));
 
   return (
-    <div className="relative w-full h-[450px] bg-red-500">
-      <div className="overflow-hidden h-full relative" ref={emblaRef}>
-        <div className="flex w-full h-full">
-          {images.map((src, index) => (
-            <div key={index} className="relative w-full h-full flex-shrink-0">
-              <Image
-                src={src}
-                alt={`Slide ${index + 1}`}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                priority={index === 0} // Optimize loading for the first image
-              />
-            </div>
-          ))}
+    <div className="relative bg-white overflow-hidden flex justify-center items-center max-w-[100vw] h-[600px]">
+      <div
+        className="-mt-14"
+        style={{ zIndex: 1, position: "absolute", top: "0", left: "0" }}
+      >
+        <LooperRedTopLeftSectionThree />
+      </div>
+      <div
+        className="-mt-14"
+        style={{ zIndex: 1, position: "absolute", top: "0", right: "0" }}
+      >
+        <LooperGreyTopRightSectionThree />
+      </div>
+      {/* Prev Button */}
+      <button onClick={scrollPrev} className=" z-20 hidden md:block">
+        <FaChevronLeft size={20} className="text-gray-600" />
+      </button>
+
+      {/* Carousel */}
+      <div className="flex flex-col items-center justify-center w-[90%]  h-full">
+        <p className="text-4xl font-bold text-center mb-12">
+          <span className="text-gray-700">Our</span>{" "}
+          <span className="text-red-700">Products</span>{" "}
+        </p>
+        <div
+          style={{ zIndex: 10 }}
+          className="overflow-hidden w-[100%]"
+          ref={emblaRef}
+        >
+          <div className="flex">
+            {products.map((product, index) => (
+              <div
+                key={index}
+                className={`
+                flex justify-center items-start
+                flex-shrink-0
+                px-2 
+                transition-transform duration-300 ease-in-out 
+                ${
+                  index === centeredIndex
+                    ? "scale-[99%] z-10"
+                    : "scale-80 opacity-100"
+                }
+                w-[70%] sm:w-1/2 md:w-1/3
+              `}
+              >
+                <ProductCard name={product.name} images={product.images} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <button
-        onClick={() => embla && embla.scrollPrev()}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-3 rounded-full "
-      >
-        <FaChevronLeft size={24} />
+      {/* Next Button */}
+      <button onClick={scrollNext} className=" z-20 hidden md:block">
+        <FaChevronRight size={20} className="text-gray-600" />
       </button>
-      <button
-        onClick={() => embla && embla.scrollNext()}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-3 rounded-full "
-      >
-        <FaChevronRight size={24} />
-      </button>
-
-      {/* Dots Navigation */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => embla && embla.scrollTo(index)}
-            className={`w-3 h-3 rounded-full ${
-              selectedIndex === index ? "bg-red-700" : "bg-white"
-            }`}
-          />
-        ))}
-      </div>
     </div>
   );
 };
 
-export default SectionOne;
+export default ScaleCarousel;
