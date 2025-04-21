@@ -3,8 +3,8 @@ import React, { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import ProductCard from "./ProductCard";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
-import LooperRedTopLeftSectionThree from "../assets/svg/looperRedTopLeftSectionThree.svg";
-import LooperGreyTopRightSectionThree from "../assets/svg/looperGreyTopRightSectionThree.svg";
+import LooperRedTopLeftSectionThree from "../assets/svg/LooperRedTopLeftSectionThree.svg";
+import LooperGreyTopRightSectionThree from "../assets/svg/LooperGreyTopRightSectionThree.svg";
 
 const ScaleCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
