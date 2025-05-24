@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 
 type ProductCardProps = {
-  images: string[];
-  name: string;
   scaled?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  product: any;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ images, name, scaled }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, scaled }) => {
   const router = useRouter();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [isHovered, setIsHovered] = useState(false);
@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, name, scaled }) => {
   return (
     <>
       <div
-        onClick={() => router.push(`/${locale}/products/product`)}
+        onClick={() => router.push(`/${locale}/products/${product?.id}`)}
         style={{ zIndex: 4 }}
         className={`relative ${
           scaled ? "w-96 h-80" : "w-80 h-70"
@@ -64,15 +64,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, name, scaled }) => {
         {/* Embla Carousel */}
         <div className="w-full h-3/4" ref={emblaRef}>
           <div className="flex">
-            {images.map((src, index) => (
-              <div key={index} className="embla__slide min-w-full">
-                <img
-                  src={src}
-                  alt={name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+            {product?.ImageProduct?.map(
+              (
+                src: { image: string | undefined },
+                index: React.Key | null | undefined
+              ) => (
+                <div key={index} className="embla__slide min-w-full">
+                  <img
+                    src={src.image}
+                    alt={product?.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )
+            )}
           </div>
         </div>
 
@@ -92,7 +97,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, name, scaled }) => {
               wordBreak: "break-word",
             }}
           >
-            {name}
+            {product?.name}
           </span>
           {isHovered && (
             <FaChevronRight
@@ -115,7 +120,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, name, scaled }) => {
             maxWidth: "300px",
           }}
         >
-          {name}
+          {product?.name}
         </div>
       )}
     </>
