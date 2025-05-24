@@ -43,20 +43,15 @@ export default function Home() {
     // addProduct,
   } = ProductsStore();
   useEffect(() => {
-    // const page = pageParam ? parseInt(pageParam) : 1;
-
     const query = `/products/pagination?page=${1}`;
 
     fetchDataProducts(query);
   }, []);
   useEffect(() => {
-    // const timer = setTimeout(() => {
-    //
-    // }, 2000);
     if (successProducts) {
       Router.replace(`/${locale}/home`);
     }
-  }, [Router, locale, successProducts]);
+  }, [successProducts]);
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen px-8 pb-20 pt-16 gap-12 sm:px-20 font-[family-name:var(--font-geist-sans)] bg-gray-100">
