@@ -48,12 +48,22 @@ export default function Home() {
     console.log("use effect");
     fetchDataProducts(query);
   }, []);
+  // useEffect(() => {
+  //   if (successProducts) {
+  //     console.log("fetched succes");
+  //     Router.replace(`/${locale}/home`);
+  //   }
+  // }, [successProducts]);
+
   useEffect(() => {
-    if (successProducts) {
-      console.log("fetched succes");
+    // Set a timer to replace the route after 2 seconds (2000 milliseconds)
+    const timer = setTimeout(() => {
       Router.replace(`/${locale}/home`);
-    }
-  }, [successProducts]);
+    }, 2000);
+
+    // Clean up the timer when the component unmounts or when dependencies change
+    return () => clearTimeout(timer);
+  }, [Router, locale]);
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen px-8 pb-20 pt-16 gap-12 sm:px-20 font-[family-name:var(--font-geist-sans)] bg-gray-100">
