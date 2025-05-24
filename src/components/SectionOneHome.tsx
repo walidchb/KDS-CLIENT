@@ -32,7 +32,7 @@ const SectionOne = () => {
   }, [embla, onSelect]);
 
   return (
-    <div className="relative w-full h-[450px] bg-red-500">
+    <div className="relative w-full h-[450px] ">
       <div className="overflow-hidden h-full relative" ref={emblaRef}>
         <div className="flex w-full h-full">
           {images.map((src, index) => (

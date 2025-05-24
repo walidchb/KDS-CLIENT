@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import SectionOne from "@/components/SectionOneHome";
 import SectionTwo from "@/components/SectionTwoHome";
 import SectionThree from "@/components/SectionThreeHome";
-import { EmblaOptionsType } from "embla-carousel";
+// import { EmblaOptionsType } from "embla-carousel";
 
 // const OPTIONS: EmblaOptionsType = { loop: true };
 // const SLIDE_COUNT = 5;
