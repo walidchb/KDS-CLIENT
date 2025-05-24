@@ -179,6 +179,7 @@ const ProductsStore = create<AppState>((set) => ({
     },
 
     fetchDataProducts: async (endpoint) => {
+        console.log("hiii");
         try {
             set({ loadingProducts: true, errorGetProducts: null,successProducts:false });
             const response = await fetchData(endpoint);

@@ -45,10 +45,12 @@ export default function Home() {
   useEffect(() => {
     const query = `/products/pagination?page=${1}`;
 
+    console.log("use effect");
     fetchDataProducts(query);
   }, []);
   useEffect(() => {
     if (successProducts) {
+      console.log("fetched succes");
       Router.replace(`/${locale}/home`);
     }
   }, [successProducts]);
