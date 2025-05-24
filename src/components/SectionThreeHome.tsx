@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import LooperRedTopLeftSectionThree from "../assets/svg/LooperRedTopLeftSectionThree.svg";
 import LooperGreyTopRightSectionThree from "../assets/svg/LooperGreyTopRightSectionThree.svg";
+import ProductsStore from "@/stores/products";
 
 const ScaleCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -12,6 +13,40 @@ const ScaleCarousel = () => {
     align: "center",
     containScroll: false,
   });
+
+  const {
+    Dataproducts,
+
+    // loadingProducts,
+    // errorGetProducts,
+
+    // productDetails,
+
+    // errorDynamicTable,
+    // successDynamicTable,
+    // fetchDataDynamicTable,
+    // errorGetProductDetails,
+    // loadingProductDetails,
+    // dataPatchProduct,
+    // loadingPatch,
+    // errorPatch,
+    // successPatch,
+    // dataDeleteProduct,
+    // loadingDelete,
+    // errorDelete,
+    // successDelete,
+    // dataAddProduct,
+    // loadingAddProduct,
+    // errorAddProduct,
+    // successAddProduct,
+    // fetchDataProducts,
+    // fetchDataProductDetails,
+    // resetProductDetails,
+    // resetDynamicTable,
+    // patchProduct,
+    // deleteProduct,
+    // addProduct,
+  } = ProductsStore();
 
   const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
@@ -39,11 +74,19 @@ const ScaleCarousel = () => {
     setCenteredIndex(closestIndex);
   }, [emblaApi]);
 
+  // useEffect(() => {
+  //   // const page = pageParam ? parseInt(pageParam) : 1;
+
+  //   const query = `/products/pagination?page=${1}`;
+
+  //   fetchDataProducts(query);
+  // }, []);
+
   useEffect(() => {
     if (!emblaApi) return;
 
     // Scroll to the middle product
-    const middleIndex = Math.floor(products.length / 2);
+    const middleIndex = Math.floor(20 / 2);
     emblaApi.scrollTo(middleIndex);
 
     // Setup listeners after initial scroll
@@ -56,14 +99,14 @@ const ScaleCarousel = () => {
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
-  const products = Array.from({ length: 20 }, (_, index) => ({
-    name: `Product ${index + 1}`,
-    images: [
-      `https://picsum.photos/200/300?random=${index * 3 + 1}`,
-      `https://picsum.photos/200/300?random=${index * 3 + 2}`,
-      `https://picsum.photos/200/300?random=${index * 3 + 3}`,
-    ],
-  }));
+  // const products = Array.from({ length: 20 }, (_, index) => ({
+  //   name: `Product ${index + 1}`,
+  //   images: [
+  //     `https://picsum.photos/200/300?random=${index * 3 + 1}`,
+  //     `https://picsum.photos/200/300?random=${index * 3 + 2}`,
+  //     `https://picsum.photos/200/300?random=${index * 3 + 3}`,
+  //   ],
+  // }));
 
   return (
     <div className="relative bg-white overflow-hidden flex justify-center items-center max-w-[100vw] h-[600px]">
@@ -95,11 +138,13 @@ const ScaleCarousel = () => {
           className="overflow-hidden w-[100%]"
           ref={emblaRef}
         >
-          <div className="flex">
-            {products.map((product, index) => (
-              <div
-                key={index}
-                className={`
+          {/* {loadingProducts ? (
+            <div className="flex">
+              {[1, 2, 3, 4, 5, 6]?.map(
+                (product: unknown, index: React.Key | null | undefined) => (
+                  <div
+                    key={index}
+                    className={`
                 flex justify-center items-start
                 flex-shrink-0
                 px-2 
@@ -111,11 +156,49 @@ const ScaleCarousel = () => {
                 }
                 w-[70%] sm:w-1/2 md:w-1/3
               `}
-              >
-                <ProductCard name={product.name} images={product.images} />
-              </div>
-            ))}
+                  >
+                    <div
+                      key={index}
+                      className={`relative w-80 h-70 cursor-pointer overflow-hidden rounded-lg shadow-lg bg-gray-100 animate-pulse`}
+                    >
+                      <div className="w-full h-3/4 bg-gray-300 flex items-center justify-center">
+                        <div className="w-2/3 h-2/3 bg-gray-200 rounded" />
+                      </div>
+
+                      <div className="absolute bottom-0 left-0 w-full px-4 py-3 bg-white flex items-center justify-between">
+                        <div className="w-2/3 h-5 bg-gray-300 rounded" />
+                        <div className="w-5 h-5 bg-gray-300 rounded-full" />
+                      </div>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          ) : ( */}
+          <div className="flex">
+            {Dataproducts?.data?.map(
+              (product: unknown, index: React.Key | null | undefined) => (
+                <div
+                  key={index}
+                  className={`
+                flex justify-center items-start
+                flex-shrink-0
+                px-2 
+                transition-transform duration-300 ease-in-out 
+                ${
+                  index === centeredIndex
+                    ? "scale-[99%] z-10"
+                    : "scale-80 opacity-100"
+                }
+                w-[70%] sm:w-1/2 md:w-1/3
+              `}
+                >
+                  <ProductCard key={index} product={product} />
+                </div>
+              )
+            )}
           </div>
+          {/* )} */}
         </div>
       </div>
 

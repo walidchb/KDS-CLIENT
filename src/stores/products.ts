@@ -12,6 +12,7 @@ interface AppState {
     Dataproducts: any;
     errorGetProducts: string | null;
     loadingProducts: boolean;
+    successProducts:boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     productDetails: {
         id: string;
@@ -97,6 +98,7 @@ const ProductsStore = create<AppState>((set) => ({
     Dataproducts: [],
     errorGetProducts: null,
     loadingProducts: false,
+    successProducts:false,
     productDetails: {
         id: "",
         name: "",
@@ -178,12 +180,12 @@ const ProductsStore = create<AppState>((set) => ({
 
     fetchDataProducts: async (endpoint) => {
         try {
-            set({ loadingProducts: true, errorGetProducts: null });
+            set({ loadingProducts: true, errorGetProducts: null,successProducts:false });
             const response = await fetchData(endpoint);
 console.log("products", response.data);
-            set({ Dataproducts: response.data, loadingProducts: false });
+            set({ Dataproducts: response.data, loadingProducts: false,successProducts:true });
         } catch (error: unknown) {
-            set({ errorGetProducts: error instanceof Error ? error.message : String(error), loadingProducts: false });
+            set({ errorGetProducts: error instanceof Error ? error.message : String(error), loadingProducts: false ,successProducts:false});
         }
     },
 
