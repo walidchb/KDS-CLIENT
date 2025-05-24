@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-gray-300 text-xs animate-fade-in">
-        &copy; {new Date().getFullYear()} KDS - All Rights Reserved
+        &copy; {new Date().getFullYear()} KDS -All Rights Reserved
       </footer>
 
       <style jsx>{`
