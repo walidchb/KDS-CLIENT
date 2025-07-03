@@ -39,7 +39,7 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
     {
       title: "About us",
       items: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mauris nec arcu sodales faucibus. ",
+        "KDS est une entreprise algérienne spécialisée dans l’importation et la distribution de matériel médico-chirurgical, dispositifs médicaux, matériel de laboratoire et consommables scientifiques. Elle s’adresse aux professionnels de santé, laboratoires, centres de recherche et établissements hospitaliers.",
       ],
     },
     {

@@ -13,10 +13,19 @@ interface AppState {
     errorGetProducts: string | null;
     loadingProducts: boolean;
     successProducts:boolean;
+
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    DataproductsNavBar: any;
+    errorGetProductsNavBar: string | null;
+    loadingProductsNavBar: boolean;
+    successProductsNavBar:boolean;
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     productDetails: {
         id: string;
         name: string;
+        ref: string;
+        specName: string;
         description: string;
         ListDescription: Array<{
             id: string;
@@ -66,6 +75,8 @@ interface AppState {
     fetchDataDynamicTable: (endpoint: string) => Promise<void>;
     
    fetchDataProducts: (endpoint: string) => Promise<void>;
+
+   fetchDataProductsNavBar: (endpoint: string) => Promise<void>;
    resetProductDetails: () => void;
    resetDynamicTable: () => void;
     fetchDataProductDetails: (endpoint: string) => Promise<void>;
@@ -99,9 +110,15 @@ const ProductsStore = create<AppState>((set) => ({
     errorGetProducts: null,
     loadingProducts: false,
     successProducts:false,
+    DataproductsNavBar: [],
+    errorGetProductsNavBar: null,
+    loadingProductsNavBar: false,
+    successProductsNavBar:false,
     productDetails: {
         id: "",
         name: "",
+        ref: "",
+        specName: "",
         description: "",
         ListDescription: [
             {
@@ -190,10 +207,23 @@ console.log("products", response.data);
         }
     },
 
+    fetchDataProductsNavBar: async (endpoint) => {
+        try {
+            set({ loadingProductsNavBar: true, errorGetProductsNavBar: null,successProductsNavBar:false });
+            const response = await fetchData(endpoint);
+            localStorage.setItem("productsNavBar", JSON.stringify(response.data));
+            set({ DataproductsNavBar: response.data, loadingProductsNavBar: false,successProductsNavBar:true });
+        } catch (error: unknown) {
+            set({ errorGetProductsNavBar: error instanceof Error ? error.message : String(error), loadingProductsNavBar: false ,successProductsNavBar:false});
+        }
+    },
+
     resetProductDetails: () => {
         set({ productDetails: {
             id: "",
             name: "",
+            ref: "",
+            specName: "",
             description: "",
             ListDescription: [
                 {

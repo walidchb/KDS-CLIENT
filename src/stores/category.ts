@@ -21,6 +21,20 @@ interface CategoryState {
     errorSubcategories: string | null;
     successSubcategories: boolean;
 
+    // Categories
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataCategoriesNavBar: any;
+    loadingCategoriesNavBar: boolean;
+    errorCategoriesNavBar: string | null;
+    successCategoriesNavBar: boolean;
+
+    // Subcategories
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataSubcategoriesNavBar: any;
+    loadingSubcategoriesNavBar: boolean;
+    errorSubcategoriesNavBar: string | null;
+    successSubcategoriesNavBar: boolean;
+
     // CRUD states for Categories
     dataAddCategory: unknown;
     loadingAddCategory: boolean;
@@ -56,6 +70,8 @@ interface CategoryState {
     // Methods
     fetchCategories: (endpoint: string) => Promise<void>;
     fetchSubcategories: (endpoint: string) => Promise<void>;
+    fetchCategoriesNavBar: (endpoint: string) => Promise<void>;
+    fetchSubcategoriesNavBar: (endpoint: string) => Promise<void>;
 
     addCategory: (endpoint: string, data: unknown) => Promise<void>;
     deleteCategory: (endpoint: string) => Promise<void>;
@@ -82,6 +98,14 @@ const CategoryStore = create<CategoryState>((set) => ({
     loadingSubcategories: false,
     errorSubcategories: null,
     successSubcategories: false,
+    dataCategoriesNavBar: [],
+    loadingCategoriesNavBar: false,
+    errorCategoriesNavBar: null,
+    successCategoriesNavBar: false,
+    dataSubcategoriesNavBar: [],
+    loadingSubcategoriesNavBar: false,
+    errorSubcategoriesNavBar: null,
+    successSubcategoriesNavBar: false,
 
     dataAddCategory: null,
     loadingAddCategory: false,
@@ -132,6 +156,30 @@ const CategoryStore = create<CategoryState>((set) => ({
             set({ dataSubcategories: response.data, loadingSubcategories: false, successSubcategories: true });
         } catch (error: unknown) {
             set({ errorSubcategories: error instanceof Error ? error.message : String(error), loadingSubcategories: false });
+        }
+    },
+
+    // Fetch categories for NavBar
+    fetchCategoriesNavBar: async (endpoint) => {
+        try {
+            set({ loadingCategoriesNavBar: true, errorCategoriesNavBar: null });
+            const response = await fetchData(endpoint);
+            localStorage.setItem("categoriesNavBar", JSON.stringify(response.data));
+            set({ dataCategoriesNavBar: response.data, loadingCategoriesNavBar: false, successCategoriesNavBar: true });
+        } catch (error: unknown) {
+            set({ errorCategoriesNavBar: error instanceof Error ? error.message : String(error), loadingCategoriesNavBar: false });
+        }
+    },
+
+    // Fetch subcategories for NavBar
+    fetchSubcategoriesNavBar: async (endpoint) => {
+        try {
+            set({ loadingSubcategoriesNavBar: true, errorSubcategoriesNavBar: null });
+            const response = await fetchData(endpoint);
+            localStorage.setItem("subcategoriesNavBar", JSON.stringify(response.data));
+            set({ dataSubcategoriesNavBar: response.data, loadingSubcategoriesNavBar: false, successSubcategoriesNavBar: true });
+        } catch (error: unknown) {
+            set({ errorSubcategoriesNavBar: error instanceof Error ? error.message : String(error), loadingSubcategoriesNavBar: false });
         }
     },
 

@@ -97,7 +97,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, scaled }) => {
               wordBreak: "break-word",
             }}
           >
-            {product?.name}
+            {product?.specName || product?.name || "No Name"}
           </span>
           {isHovered && (
             <FaChevronRight

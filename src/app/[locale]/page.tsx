@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useLocale } from "next-intl";
 import LogoKdsNavBarWeb from "../../assets/svg/LogoKdsNavBarWeb.svg";
 import ProductsStore from "@/stores/products";
+import CategoryStore from "@/stores/category";
 
 export default function Home() {
   const Router = useRouter();
@@ -16,7 +17,7 @@ export default function Home() {
     // errorGetProducts,
 
     // productDetails,
-    successProducts,
+    successProductsNavBar,
     // errorDynamicTable,
     // successDynamicTable,
     // fetchDataDynamicTable,
@@ -34,7 +35,9 @@ export default function Home() {
     // loadingAddProduct,
     // errorAddProduct,
     // successAddProduct,
-    fetchDataProducts,
+
+    // fetchDataProducts,
+    fetchDataProductsNavBar,
     // fetchDataProductDetails,
     // resetProductDetails,
     // resetDynamicTable,
@@ -42,18 +45,71 @@ export default function Home() {
     // deleteProduct,
     // addProduct,
   } = ProductsStore();
-  useEffect(() => {
-    const query = `/products/pagination?page=${1}`;
 
-    console.log("use effect");
-    fetchDataProducts(query);
+  const {
+    // Categories
+    // dataCategories,
+    // // loadingCategories,
+
+    // // Subcategories
+    // dataSubcategories,
+    successSubcategoriesNavBar,
+    successCategoriesNavBar,
+    // loadingSubcategories,
+
+    // // CRUD states for Categories
+
+    // successAddCategory,
+
+    // successDeleteCategory,
+
+    // successPatchCategory,
+
+    // CRUD states for Subcategories
+
+    // successAddSubcategory,
+
+    // successDeleteSubcategory,
+
+    // successPatchSubcategory,
+
+    // Methods
+    // fetchCategories,
+    // fetchSubcategories,
+    fetchCategoriesNavBar,
+    fetchSubcategoriesNavBar,
+
+    // resetAllStates,
+    // globalAlertNotification,
+  } = CategoryStore();
+  useEffect(() => {
+    fetchData();
   }, []);
   useEffect(() => {
-    if (successProducts) {
+    if (
+      successProductsNavBar &&
+      successCategoriesNavBar &&
+      successSubcategoriesNavBar
+    ) {
       console.log("fetched succes");
       Router.replace(`/${locale}/home`);
     }
-  }, [successProducts]);
+  }, [
+    successProductsNavBar,
+    successCategoriesNavBar,
+    successSubcategoriesNavBar,
+    Router,
+    locale,
+  ]);
+
+  const fetchData: () => void = () => {
+    const query = `/products/pagination`;
+
+    console.log("use effect");
+    fetchDataProductsNavBar(query);
+    fetchCategoriesNavBar("/categories"); // Replace with your real endpoint
+    fetchSubcategoriesNavBar("/subcategories/"); // Replace with your real endpoint
+  };
 
   // useEffect(() => {
   //   // Set a timer to replace the route after 2 seconds (2000 milliseconds)

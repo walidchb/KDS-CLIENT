@@ -34,11 +34,15 @@ const SectionTwo = () => {
       <div className="flex   flex-col justify-center items-start gap-4 h-full px-4">
         <h3 className="text-red-700 text-4xl">Kreative diagnostic system</h3>
         <p className="text-black text-xl mt-8">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec
-          mauris nec arcu sodales faucibus. Aenean hendrerit sagittis fermentum.
-          Etiam tristique dolor malesuada ante gravida hendrerit. Proin sodales
-          ante est, nec vestibulum ante faucibus at. Nam accumsan sodales tellus
-          quis tempor.
+          Spécialisés dans l’importation et la distribution de matériel
+          médico-chirurgical et de dispositifs médicaux, nous accompagnons les
+          professionnels de santé avec des solutions fiables, innovantes et
+          adaptées à leurs besoins. Nos domaines d’expertise couvrent un large
+          éventail, allant de la biopsie, la PCR en temps réel, le caryotype et
+          la cytogénétique, jusqu’à d’autres secteurs clés du diagnostic et de
+          la recherche biomédicale. Grâce à une veille constante et une
+          sélection rigoureuse de nos produits, nous nous engageons à garantir
+          performance, sécurité et qualité dans chaque équipement proposé.
         </p>
         <div className="w-full flex justify-end">
           <button

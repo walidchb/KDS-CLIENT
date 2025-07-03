@@ -15,13 +15,10 @@ const ScaleCarousel = () => {
   });
 
   const {
-    Dataproducts,
-
+    // Dataproducts,
     // loadingProducts,
     // errorGetProducts,
-
     // productDetails,
-
     // errorDynamicTable,
     // successDynamicTable,
     // fetchDataDynamicTable,
@@ -176,7 +173,9 @@ const ScaleCarousel = () => {
             </div>
           ) : ( */}
           <div className="flex">
-            {Dataproducts?.data?.map(
+            {JSON.parse(
+              localStorage.getItem("productsNavBar") || "{}"
+            )?.data?.map(
               (product: unknown, index: React.Key | null | undefined) => (
                 <div
                   key={index}

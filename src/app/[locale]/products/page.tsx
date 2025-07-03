@@ -8,6 +8,7 @@ import LooperRedTopLeftContact from "../../../assets/svg/LooperRedTopLeftContact
 import NavBar from "@/components/NavBar";
 import { CiSearch } from "react-icons/ci";
 import ProductsStore from "@/stores/products";
+import CategoryStore from "@/stores/category";
 import Footer from "@/components/Footer";
 import InputWithIcon from "@/components/InputWithIcon";
 import Dropdown from "@/components/DropDown";
@@ -34,14 +35,39 @@ function Products() {
   //   ],
   // }));
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
-    null
-  );
+  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  // const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+  //   null
+  // );
 
   const [page, setpage] = useState(1);
   const searchParams = useSearchParams();
 
+  const {
+    // Categories
+    // dataCategories,
+    dataCategoriesNavBar,
+    // // loadingCategories,
+    // // Subcategories
+    // // dataSubcategories,
+    dataSubcategoriesNavBar,
+    // loadingSubcategories,
+    // // CRUD states for Categories
+    // successAddCategory,
+    // successDeleteCategory,
+    // successPatchCategory,
+    // CRUD states for Subcategories
+    // successAddSubcategory,
+    // successDeleteSubcategory,
+    // successPatchSubcategory,
+    // Methods
+    // fetchCategories,
+    // fetchCategoriesNavBar,
+    // // fetchSubcategories,
+    // fetchSubcategoriesNavBar,
+    // resetAllStates,
+    // globalAlertNotification,
+  } = CategoryStore();
   const {
     fetchDataCategories,
     dataCategories,
@@ -102,25 +128,32 @@ function Products() {
   };
 
   const handleCategoryChange = (value: string | null) => {
-    const categoryId = dataCategories?.data.find(
-      (category: { name: string }) => category.name === value
-    )?.id;
-    setSelectedCategory(categoryId);
-    updateQueryParams("category", categoryId, true); // reset page
+    // const categoryId = dataCategories?.data.find(
+    //   (category: { name: string }) => category.name === value
+    // )?.id;
+    // setSelectedCategory(categoryId);
+    updateQueryParams("category", value, true); // reset page
   };
 
   const handleSubCategoryChange = (value: string | null) => {
-    const subCategoryId = dataSubcategories.find(
-      (subcategory: { name: string }) => subcategory.name === value
-    )?.id;
-    setSelectedSubCategory(subCategoryId);
-    updateQueryParams("subCategory", subCategoryId, true); // reset page
+    // const subCategoryId = dataSubcategories.find(
+    //   (subcategory: { name: string }) => subcategory.name === value
+    // )?.id;
+    // setSelectedSubCategory(subCategoryId);
+    updateQueryParams("subCategory", value, true); // reset page
   };
 
   const handlePageChange = (page: number) => {
     setpage(page);
     updateQueryParams("page", page.toString());
   };
+
+  const cats = localStorage.getItem("categoriesNavBar")
+    ? JSON.parse(localStorage.getItem("categoriesNavBar") || "[]")
+    : dataCategoriesNavBar?.data || [];
+  const subs = localStorage.getItem("subcategoriesNavBar")
+    ? JSON.parse(localStorage.getItem("subcategoriesNavBar") || "[]")
+    : dataSubcategoriesNavBar?.data || [];
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -130,15 +163,22 @@ function Products() {
     const subCategoryParam = searchParams.get("subCategory");
     const nameParam = searchParams.get("name");
 
-    setSelectedCategory(categoryParam || null);
-    setSelectedSubCategory(subCategoryParam || null);
+    // setSelectedCategory(categoryParam || null);
+    // setSelectedSubCategory(subCategoryParam || null);
     setName(nameParam || "");
 
     const page = pageParam ? parseInt(pageParam) : 1;
 
+    const categoryId = cats?.find(
+      (category: { name: string }) => category.name === categoryParam
+    )?.id;
+    const subCategoryId = subs?.find(
+      (subcategory: { name: string }) => subcategory.name === subCategoryParam
+    )?.id;
+
     const query = `/products/pagination?page=${page}${
-      categoryParam ? `&categoryId=${categoryParam}` : ""
-    }${subCategoryParam ? `&subCategoryId=${subCategoryParam}` : ""}${
+      categoryParam ? `&categoryId=${categoryId}` : ""
+    }${subCategoryParam ? `&subCategoryId=${subCategoryId}` : ""}${
       name ? `&name=${nameParam}` : ``
     } `;
 
@@ -150,11 +190,15 @@ function Products() {
   }, []);
 
   useEffect(() => {
-    if (selectedCategory) {
-      console.log("cat", selectedCategory);
-      fetchDataSubcategories(`/subcategories/${selectedCategory}/category`);
+    if (searchParams.get("category")) {
+      // console.log("cat", selectedCategory);
+      const catId = dataCategoriesNavBar?.find(
+        (category: { name: string }) =>
+          category.name == searchParams.get("category")
+      )?.id;
+      fetchDataSubcategories(`/subcategories/${catId}/category`);
     }
-  }, [selectedCategory]);
+  }, [searchParams.get("category")]);
 
   // useEffect(() => {
   //   console.log("data prdycsdk");
@@ -167,14 +211,21 @@ function Products() {
     const categoryParam = searchParams.get("category");
     const subCategoryParam = searchParams.get("subCategory");
 
-    setSelectedCategory(categoryParam || null);
-    setSelectedSubCategory(subCategoryParam || null);
+    // setSelectedCategory(categoryParam || null);
+    // setSelectedSubCategory(subCategoryParam || null);
 
     const page = pageParam ? parseInt(pageParam) : 1;
 
+    const categoryId = dataCategoriesNavBar?.find(
+      (category: { name: string }) => category.name === categoryParam
+    )?.id;
+    const subCategoryId = dataSubcategoriesNavBar?.find(
+      (subcategory: { name: string }) => subcategory.name === subCategoryParam
+    )?.id;
+
     const query = `/products/pagination?page=${page}${
-      categoryParam ? `&categoryId=${categoryParam}` : ""
-    }${subCategoryParam ? `&subCategoryId=${subCategoryParam}` : ""}`;
+      categoryParam ? `&categoryId=${categoryId}` : ""
+    }${subCategoryParam ? `&subCategoryId=${subCategoryId}` : ""}`;
 
     console.log("add", successAddProduct);
     console.log("delete", successDelete);
@@ -196,7 +247,12 @@ function Products() {
 
   return (
     <div>
-      <NavBar currentScreen={2} />
+      <NavBar
+      // currentScreen={2}
+      // categories={dataCategoriesNavBar || []}
+      // products={Dataproducts?.data || []}
+      // subCategories={dataSubcategoriesNavBar || []}
+      />
       <div className="min-h-screen relative flex flex-col justify-center items-center px-4   bg-cover  bg-white">
         <div className="w-[90%] mt-20  flex justify-start ">
           <h3 className="text-gray-600 mb-10 text-4xl font-semibold">
@@ -244,16 +300,13 @@ function Products() {
                     (category: { name: string }) => category.name
                   ) || []
                 }
-                value={
-                  dataCategories?.data?.find(
-                    (category: { id: string }) =>
-                      category.id === selectedCategory
-                  )?.name
-                }
+                value={searchParams.get("category")}
                 setValue={handleCategoryChange}
                 // onClear={handleClear}
               />
-              {selectedCategory && dataSubcategories?.length != 0 && (
+              {(searchParams.get("category") ||
+                searchParams.get("subCategory") ||
+                dataSubcategories?.length != 0) && (
                 <Dropdown
                   className="min-w-[300px]  w-full sm:w-[48%] lg:w-[30%]"
                   placeholder={"sous-catégorie"}
@@ -262,12 +315,7 @@ function Products() {
                       (subcategory: { name: string }) => subcategory.name
                     ) || []
                   }
-                  value={
-                    dataSubcategories?.find(
-                      (subcategory: { id: string }) =>
-                        subcategory.id === selectedSubCategory
-                    )?.name
-                  }
+                  value={searchParams.get("subCategory")}
                   setValue={handleSubCategoryChange}
                   // onClear={handleClear}
                 />

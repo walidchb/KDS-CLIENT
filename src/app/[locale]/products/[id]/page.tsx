@@ -14,16 +14,72 @@ import { useParams } from "next/navigation";
 import ProductsStore from "@/stores/products";
 import { IColumnType, Table } from "@/components/Table";
 import TableLoader from "@/components/TableLoader";
-import ProductCard from "@/components/ProductCard";
+// import ProductCard from "@/components/ProductCard";
+import CategoryStore from "@/stores/category";
 
 const Product = () => {
+  const {
+    // Dataproducts,
+    // loadingProducts,
+    // errorGetProducts,
+    // productDetails,
+    // successProducts,
+    // errorDynamicTable,
+    // successDynamicTable,
+    // fetchDataDynamicTable,
+    // errorGetProductDetails,
+    // loadingProductDetails,
+    // dataPatchProduct,
+    // loadingPatch,
+    // errorPatch,
+    // successPatch,
+    // dataDeleteProduct,
+    // loadingDelete,
+    // errorDelete,
+    // successDelete,
+    // dataAddProduct,
+    // loadingAddProduct,
+    // errorAddProduct,
+    // successAddProduct,
+    // fetchDataProducts,
+    // fetchDataProductDetails,
+    // resetProductDetails,
+    // resetDynamicTable,
+    // patchProduct,
+    // deleteProduct,
+    // addProduct,
+  } = ProductsStore();
+
+  const {
+    // Categories
+    // dataCategories,
+    // loadingCategories,
+    // Subcategories
+    // dataSubcategories,
+    // dataCategoriesNavBar,
+    // dataSubcategoriesNavBar,
+    // loadingSubcategories,
+    // // CRUD states for Categories
+    // successAddCategory,
+    // successDeleteCategory,
+    // successPatchCategory,
+    // CRUD states for Subcategories
+    // successAddSubcategory,
+    // successDeleteSubcategory,
+    // successPatchSubcategory,
+    // Methods
+    // fetchCategories,
+    // fetchSubcategories,
+    // resetAllStates,
+    // globalAlertNotification,
+  } = CategoryStore();
   const locale = useLocale();
   const { id } = useParams();
 
   const {
-    Dataproducts,
+    // Dataproducts,
 
-    loadingProducts,
+    // loadingProducts,
     // errorGetProducts,
 
     productDetails,
@@ -54,6 +110,17 @@ const Product = () => {
     // addProduct,
   } = ProductsStore();
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+  // const fetchData: () => void = () => {
+  //   const query = `/products/pagination?page=${1}`;
+
+  //   console.log("use effect");
+  //   fetchDataProducts(query);
+  //   fetchCategories("/categories"); // Replace with your real endpoint
+  //   fetchSubcategories("/subcategories/"); // Replace with your real endpoint
+  // };
   useEffect(() => {
     // Fetch product details and dynamic table data when the modal opens
     // and the product ID is available
@@ -173,18 +240,26 @@ const Product = () => {
 
   return (
     <div>
-      <NavBar currentScreen={2} />
+      <NavBar
+      // currentScreen={2}
+      // categories={dataCategoriesNavBar || []}
+      // products={Dataproducts?.data || []}
+      // subCategories={dataSubcategoriesNavBar || []}
+      />
       {loadingProductDetails ? (
         ProductDetailsSkeleton()
       ) : (
         <div className="min-h-screen relative flex flex-col justify-center items-center px-4 bg-cover bg-white">
           <div className="w-[90%] mt-20 flex justify-start">
-            <h3 className="flex justify-start mb-10 items-center">
-              <span className="text-gray-600 mr-2 text-4xl font-semibold">
+            <h3 className="flex justify-start mb-10 items-start">
+              <span className="text-gray-600 mr-2 text-4xl font-semibold whitespace-nowrap">
                 Products /
               </span>
               <span className="text-red-700 text-2xl font-medium">
-                {productDetails.name}
+                {productDetails.name}{" "}
+                <span className="text-gray-500">
+                  ({productDetails.ref || "No Ref"})
+                </span>
               </span>
             </h3>
           </div>
@@ -197,7 +272,7 @@ const Product = () => {
               <LooperRedTopLeftContact />
             </div>
 
-            <div className="z-20 w-full flex flex-col justify-center items-start">
+            <div className=" w-full flex flex-col justify-center items-start">
               {productDetails?.ImageProduct?.length > 0 && (
                 <div className="w-full h-[400px] bg-gray-300 relative">
                   <div className="overflow-hidden h-full" ref={emblaRef}>
@@ -283,31 +358,6 @@ const Product = () => {
               </div>
             </div>
           </div>
-
-          <div className="w-[90%]  flex flex-col justify-start items-start">
-            <div className="my-6 w-full h-[1px] bg-gray-300"></div>
-
-            <span className="text-3xl text-gray-500 my-6 font-bold border-b-4 border-red-700">
-              Related Products
-            </span>
-          </div>
-
-          {!loadingProducts && (
-            <div
-              style={{ zIndex: 4 }}
-              className="flex mb-20 flex-wrap gap-8 justify-center items-center mt-10"
-            >
-              {Dataproducts?.data?.slice(1, 5)?.map(
-                (
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  product: any,
-                  index: React.Key | null | undefined
-                ) => (
-                  <ProductCard key={index} product={product} />
-                )
-              )}
-            </div>
-          )}
         </div>
       )}
       <Footer />

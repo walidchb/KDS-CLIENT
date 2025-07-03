@@ -10,12 +10,88 @@ import NavBar from "@/components/NavBar";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Footer from "@/components/Footer";
+import ProductsStore from "@/stores/products";
+import CategoryStore from "@/stores/category";
+// import { useEffect } from "react";
 // import axios from "axios";
 
 function Contact() {
+  const {
+    // Dataproducts,
+    // loadingProducts,
+    // errorGetProducts,
+    // productDetails,
+    // successProducts,
+    // errorDynamicTable,
+    // successDynamicTable,
+    // fetchDataDynamicTable,
+    // errorGetProductDetails,
+    // loadingProductDetails,
+    // dataPatchProduct,
+    // loadingPatch,
+    // errorPatch,
+    // successPatch,
+    // dataDeleteProduct,
+    // loadingDelete,
+    // errorDelete,
+    // successDelete,
+    // dataAddProduct,
+    // loadingAddProduct,
+    // errorAddProduct,
+    // successAddProduct,
+    // fetchDataProducts,
+    // fetchDataProductDetails,
+    // resetProductDetails,
+    // resetDynamicTable,
+    // patchProduct,
+    // deleteProduct,
+    // addProduct,
+  } = ProductsStore();
+
+  const {
+    // Categories
+    // dataCategories,
+    // dataCategoriesNavBar,
+    // // loadingCategories,
+    // // Subcategories
+    // // dataSubcategories,
+    // dataSubcategoriesNavBar,
+    // loadingSubcategories,
+    // // CRUD states for Categories
+    // successAddCategory,
+    // successDeleteCategory,
+    // successPatchCategory,
+    // CRUD states for Subcategories
+    // successAddSubcategory,
+    // successDeleteSubcategory,
+    // successPatchSubcategory,
+    // Methods
+    // fetchCategories,
+    // fetchCategoriesNavBar,
+    // // fetchSubcategories,
+    // fetchSubcategoriesNavBar,
+    // resetAllStates,
+    // globalAlertNotification,
+  } = CategoryStore();
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+  // const fetchData: () => void = () => {
+  //   const query = `/products/pagination`;
+
+  //   console.log("use effect");
+  //   fetchDataProductsNavBar(query);
+  //   fetchCategoriesNavBar("/categories"); // Replace with your real endpoint
+  //   fetchSubcategoriesNavBar("/subcategories/"); // Replace with your real endpoint
+  // };
   return (
     <div>
-      <NavBar currentScreen={4} />
+      <NavBar
+        currentScreen={4}
+        // categories={dataCategoriesNavBar || []}
+        // products={Dataproducts?.data || []}
+        // subCategories={dataSubcategoriesNavBar || []}
+      />
       <div className="min-h-screen relative flex flex-col justify-center items-center px-4   bg-cover  bg-white">
         <div className="w-[90%] mt-20 md:mt-0 flex justify-start ">
           <h3 className="text-gray-600 text-4xl font-semibold">Contact us</h3>
@@ -80,7 +156,7 @@ function Contact() {
                 })}
                 onSubmit={() => console.log("object")}
               >
-                {({ errors, touched, isSubmitting }) => (
+                {({}) => (
                   <Form>
                     <div className="flex w-full flex-col    md:space-x-2 lg:flex-row justify-between">
                       <div className="flex flex-col w-full  mb-[5px]">
