@@ -272,7 +272,7 @@ const Product = () => {
               <LooperRedTopLeftContact />
             </div>
 
-            <div className=" w-full flex flex-col justify-center items-start">
+            <div className=" w-full flex mb-32 flex-col justify-center items-start">
               {productDetails?.ImageProduct?.length > 0 && (
                 <div className="w-full h-[400px] bg-gray-300 relative">
                   <div className="overflow-hidden h-full" ref={emblaRef}>
@@ -356,6 +356,103 @@ const Product = () => {
                   />
                 ) : null}
               </div>
+
+              {productDetails?.customImages?.filter(
+                (img) => img.customImage.type === 1
+              ).length > 0 && (
+                <label className="block text-black font-bold my-8">
+                  Characteristics
+                </label>
+              )}
+              {productDetails?.customImages?.filter(
+                (img) => img.customImage.type === 1
+              ).length > 0 && (
+                <div className="flex text-black flex-wrap flex-row gap-x-16 gap-y-8 justify-start items-start">
+                  {productDetails?.customImages
+                    .filter((img) => img.customImage.type === 1)
+                    .map((img, index) => (
+                      <div
+                        className="   flex flex-col items-center justify-center"
+                        key={index}
+                      >
+                        <img
+                          src={img.customImage.image}
+                          alt={`Characteristic Image ${index}`}
+                          className="rounded-lg h-60 w-60"
+                        />
+                        <div className="text-center mt-1">
+                          {img.customImage.name}
+                        </div>
+                      </div>
+                    ))}{" "}
+                </div>
+              )}
+
+              <div className="w-full text-black my-4 flex flex-wrap justify-between items-center">
+                {/* step one */}
+                {productDetails?.stepOne && (
+                  <div>
+                    <label className="block  font-bold my-4">Step One :</label>
+                    <div>{productDetails?.stepOne}</div>
+                  </div>
+                )}
+
+                {/* step two */}
+                {productDetails?.stepTwo && (
+                  <div>
+                    <label className="block  font-bold my-4">Step Two :</label>
+                    <div>{productDetails?.stepTwo}</div>
+                  </div>
+                )}
+
+                {/* step three */}
+                {productDetails?.stepThree && (
+                  <div>
+                    <label className="block  font-bold my-4">
+                      Step Three :
+                    </label>
+                    <div>{productDetails?.stepThree}</div>
+                  </div>
+                )}
+
+                {/* step four */}
+                {productDetails?.stepFour && (
+                  <div>
+                    <label className="block  font-bold my-4">Step Four :</label>
+                    <div>{productDetails?.stepFour}</div>
+                  </div>
+                )}
+              </div>
+
+              {/* machine images */}
+              {productDetails?.customImages?.filter(
+                (img) => img.customImage.type === 1
+              ).length > 0 && (
+                <label className="block text-black font-bold my-8">
+                  Validated On
+                </label>
+              )}
+              {productDetails?.customImages?.length > 0 && (
+                <div className="flex text-black flex-wrap flex-row gap-x-16 gap-y-8 justify-start items-start">
+                  {productDetails?.customImages
+                    .filter((img) => img.customImage.type === 2)
+                    .map((img, index) => (
+                      <div
+                        className="   flex flex-col items-center justify-center"
+                        key={index}
+                      >
+                        <img
+                          src={img.customImage.image}
+                          alt={`Characteristic Image ${index}`}
+                          className="rounded-lg h-60 w-60"
+                        />
+                        <div className="text-center mt-1">
+                          {img.customImage.name}
+                        </div>
+                      </div>
+                    ))}{" "}
+                </div>
+              )}
             </div>
           </div>
         </div>
