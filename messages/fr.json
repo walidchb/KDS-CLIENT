@@ -1,4 +1,5 @@
 {
+  "Our": "Nos",
     "smartTools": "Des outils intelligents pour des soins de santé plus intelligents.",
     "welcomeBack": "Bon retour !",
     "description": "Un nouveau jour, une nouvelle opportunité de faire la différence. Restez maître de votre emploi du temps et continuez à offrir les meilleurs soins possibles !",
@@ -11,7 +12,141 @@
       "placeholder": "Entrez votre mot de passe"
     },
     "login": "Connexion",
-    "Products": "Products"
+    "Products": "Produits",
+    "Home": "Accueil",
+  "About us": "À propos de nous",
+  "Contact us": "Contactez-nous",
+  "No products": "Pas de produits",
+  "View all products in": "Voir tous les produits dans",
+
+  "KDS about paragraph": "KDS est une entreprise algérienne spécialisée dans l’importation et la distribution de matériel médico-chirurgical, dispositifs médicaux, matériel de laboratoire et consommables scientifiques. Elle s’adresse aux professionnels de santé, laboratoires, centres de recherche et établissements hospitaliers.",
+
+  "Contacts": "Contacts",
+  "Phone numbers": "Numéros de téléphone",
+  "Fax number": "Numéro de fax",
+  "Localisation": "Localisation",
+  "Rue Omar Boursas Section 21 iLot 59 Local N01 RDC Kouba - Alger": "Rue Omar Boursas Section 21 iLot 59 Local N01 RDC Kouba - Alger",
+  "E-mail": "E-mail",
+  "Sales": "Ventes",
+  "Contact us via e-mail": "Contactez-nous par e-mail",
+  "All rights": "Tous droits réservés.",
+  "Showing": "Affichage de",
+  "of": "sur",
+  "contact": {
+    "title": "Contactez-nous",
+    "call_us": "Appelez-nous",
+    "availability": "Nous sommes disponibles 24h/24 et 7j/7.",
+    "write_us": "Écrivez-nous",
+    "form_info": "Remplissez notre formulaire et nous vous contacterons dans les 24 heures."
+  },
+  "form": {
+    "placeholders": {
+      "name": "Votre nom",
+      "email": "Votre e-mail",
+      "message": "Votre message"
+    },
+    "send_message": "Envoyer le message",
+    "errors": {
+      "too_short": "Trop court !",
+      "too_long": "Trop long !",
+      "required": "Requis",
+      "invalid_email": "E-mail invalide"
+    },
+      
+    "sending": "Envoi...",
+    "success_message": "✅ Votre message a été envoyé avec succès !",
+    "error_message": "❌ Échec de l’envoi du message. Veuillez réessayer plus tard."
+
+  },
+  "about_kds": {
+    "summary": "Sommaire",
+    "about_kds": "À propos de KDS",
+    "our_vision": "Notre Vision",
+    "intervention_domains": "Domaines d’intervention",
+    "supportsummary": "Accompagnement",
+    "bdcomsummary": "BDCOM",
+    "futuresummary": "Vers l’avenir",
+
+    "about": {
+      "title": "À propos de KDS",
+      "paragraph1": "KDS est une entreprise algérienne spécialisée dans l’importation et la distribution de matériel médico-chirurgical, dispositifs médicaux, matériel de laboratoire et consommables scientifiques. Elle s’adresse aux professionnels de santé, laboratoires, centres de recherche et établissements hospitaliers.",
+      "paragraph2": "Filiale de BDCOM, fondée en 1998, KDS propose des solutions techniques de haute qualité, conformes aux normes internationales."
+    },
+
+    "vision": {
+      "title": "Notre Vision",
+      "list": [
+        "Fiabilité des équipements",
+        "Accessibilité des technologies de pointe",
+        "Soutien technique et humain"
+      ],
+      "paragraph": "Nous plaçons l’écoute, le conseil, la formation et le suivi au cœur de notre démarche, pour devenir le partenaire de référence des professionnels exigeants."
+    },
+
+    "domains": {
+      "title": "Nos domaines d’intervention",
+      "biopsy": {
+        "title": "🔬 Biopsie",
+        "text": "Dispositifs précis pour prélèvements tissulaires, compatibles avec imagerie médicale. Aiguilles, trocarts, pistolets automatiques, kits stériles, etc."
+      },
+      "karyotyping": {
+        "title": "🧬 Caryotypage",
+        "text": "Équipements pour l’analyse chromosomique (mitotique & prénatal), Synchroset, microscopes, réactifs spécialisés."
+      },
+      "qpcr": {
+        "title": "⚗️ PCR en temps réel (qPCR)",
+        "text": "Solutions pour la génétique, hématopathologie, microbiologie. Thermocycleurs, kits qPCR, sondes et support technique."
+      },
+      "cytogenetics": {
+        "title": "🧫 Cytogénétique",
+        "text": "Milieux spécialisés, sondes FISH, microscopes fluorescence, chambre d’hybridation, etc. Pour hématologie, pathologies complexes, microdélétions."
+      },
+      "lab_equipment": {
+        "title": "🧪 Matériel de laboratoire",
+        "text": "Centrifugeuses, hottes, incubateurs, lecteurs de plaques, autoclaves, équipements ISO/CE avec SAV local."
+      },
+      "consumables": {
+        "title": "🧴 Consommables",
+        "text": "Tubes PCR, pointes, lames, gants, sacs biohazard, protections stériles... Compatibles, fiables, conformes aux normes."
+      }
+    },
+
+    "support": {
+      "title": "Un accompagnement complet",
+      "list": [
+        "Analyse des besoins",
+        "Proposition de solutions techniques personnalisées",
+        "Installation, formation, support technique",
+        "Disponibilité continue des consommables & pièces"
+      ],
+      "paragraph": "Nous plaçons la relation humaine au cœur de notre métier : chaque client est un partenaire."
+    },
+
+    "bdcom": {
+      "title": "Une base solide : BDCOM",
+      "text": "BDCOM, fondée en 1998, est la maison mère de KDS. Forte d’un réseau international solide et d’une expérience dans le matériel médical, elle a permis la création de KDS pour répondre aux nouveaux besoins technologiques du secteur."
+    },
+
+    "future": {
+      "title": "Ensemble vers l’avenir",
+      "text": "KDS aspire à rester à la pointe de l’innovation médicale en Algérie, avec une équipe compétente, un catalogue évolutif et un service client de proximité."
+    }
+  },
+  "sectionTwoHomeKDSDescreption":"Spécialisés dans l’importation et la distribution de matériel médico-chirurgical et de dispositifs médicaux, nous accompagnons les professionnels de santé avec des solutions fiables, innovantes et adaptées à leurs besoins. Nos domaines d’expertise couvrent un large éventail, allant de la biopsie, la PCR en temps réel, le caryotype et la cytogénétique, jusqu’à d’autres secteurs clés du diagnostic et de la recherche biomédicale. Grâce à une veille constante et une sélection rigoureuse de nos produits, nous nous engageons à garantir performance, sécurité et qualité dans chaque équipement proposé.",
+  "See Products": "Voir les produits",
+  "category": "Catégorie",
+  "sub-category": "Sous-catégorie",
+  "Search by name": "Recherche par nom",
+  "No name available": "Aucun nom disponible.",
+  "Contact us for more information": "Contactez-nous pour plus d'informations",
+  "No Ref": "Aucune référence",
+  "No description available": "Aucune description disponible.",
+  "No features listed": "Aucune caractéristique disponible.",
+  "Characteristics": "Caractéristiques",
+  "Steps": "Étapes",
+  "Validated On": "Validé sur",
+  "Technical Sheet": "Fiche technique",
+  "No technical sheet available": "Aucune fiche technique disponible."
 
   }
   

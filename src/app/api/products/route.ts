@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import uploadImageToCloudinary from '@/utils/uploadImageToCloudinary';
+import {uploadImageToCloudinary , uploadDocumentToCloudinary}from '@/utils/uploadImageToCloudinary';
 
 // GET products
 export async function GET(req: NextRequest) {
@@ -42,6 +42,7 @@ export async function GET(req: NextRequest) {
             },
           },
         },
+        technicalSheet: true,
       },
     });
 
@@ -54,6 +55,17 @@ export async function GET(req: NextRequest) {
 
 // POST create product
 export async function POST(req: NextRequest) {
+  const contentType = req.headers.get('content-type') || '';
+  if (
+    !contentType.startsWith('multipart/form-data') &&
+    !contentType.startsWith('application/x-www-form-urlencoded')
+  ) {
+    return NextResponse.json(
+      { error: 'Invalid Content-Type. Must be multipart/form-data or application/x-www-form-urlencoded.' },
+      { status: 400 }
+    );
+  }
+
   const formData = await req.formData();
 
   const name = formData.get('name')?.toString() ?? '';
@@ -63,14 +75,20 @@ export async function POST(req: NextRequest) {
   const categoryId = formData.get('categoryId')?.toString() || null;
   const subCategoryId = formData.get('subCategoryId')?.toString() || null;
   const listDescription = JSON.parse(formData.get('listDescription')?.toString() ?? '[]') || [];
+  const tables = JSON.parse(formData.get('tables')?.toString() ?? '[]') || [];
   const files = formData.getAll('images') as File[];
-  const stepOne = formData.get('stepOne')?.toString() ?? '';
-  const stepTwo = formData.get('stepTwo')?.toString() ?? '';
-  const stepThree = formData.get('stepThree')?.toString() ?? '';
-  const stepFour = formData.get('stepFour')?.toString() ?? '';
+  const technicalSheetFile = formData.get('technicalSheet') as File | null;
+  let technicalSheetUrl = '';
+
+  if (technicalSheetFile && technicalSheetFile.size > 0) {
+    const buffer = Buffer.from(await technicalSheetFile.arrayBuffer());
+    technicalSheetUrl = await uploadDocumentToCloudinary(buffer); // You may want a separate upload function for non-image files
+  }
+ 
 
   const characteristicImages = JSON.parse(formData.get('characteristicImages')?.toString() ?? '[]') || [];
   const machineImages = JSON.parse(formData.get('machineImages')?.toString() ?? '[]') || [];
+  const stepsImages = JSON.parse(formData.get('stepsImages')?.toString() ?? '[]') || [];
 
   try {
     const product = await prisma.product.create({
@@ -81,10 +99,8 @@ export async function POST(req: NextRequest) {
         description,
         categoryId,
         subCategoryId,
-        stepOne,
-        stepTwo,  
-        stepThree,
-        stepFour,
+        technicalSheet: technicalSheetUrl,
+        
       },
     });
 
@@ -107,12 +123,30 @@ export async function POST(req: NextRequest) {
         productId: product.id,
         customImageId: id,
       })),
+      ...stepsImages.map((id: string) => ({
+        productId: product.id,
+        customImageId: id,
+      })),
+
     ];
 
     if (customImagesData.length > 0) {
       await prisma.productCustomImage.createMany({
         data: customImagesData,
       });
+    }
+
+    if (Array.isArray(tables) && tables.length > 0) {
+      for (const table of tables) {
+      if (table.fields && Object.keys(table.fields).length > 0) {
+        await prisma.dynamicProduct.create({
+        data: {
+          productId: product.id,
+          fields: table.fields,
+        },
+        });
+      }
+      }
     }
 
     for (const file of files) {
@@ -129,6 +163,9 @@ export async function POST(req: NextRequest) {
         },
       });
     }
+
+
+
 
     return NextResponse.json(product, { status: 201 });
   } catch (err) {

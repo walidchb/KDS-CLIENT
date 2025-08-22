@@ -6,9 +6,11 @@ import LoopersectiontworedleftTop from "../assets/svg/loopersectiontworedleftTop
 import LoopersectiontworedrightBottom from "../assets/svg/loopersectiontworedrightBottom.svg";
 import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const SectionTwo = () => {
+  const t = useTranslations("");
+
   const Router = useRouter();
   const locale = useLocale();
   return (
@@ -34,22 +36,14 @@ const SectionTwo = () => {
       <div className="flex   flex-col justify-center items-start gap-4 h-full px-4">
         <h3 className="text-red-700 text-4xl">Kreative diagnostic system</h3>
         <p className="text-black text-xl mt-8">
-          Spécialisés dans l’importation et la distribution de matériel
-          médico-chirurgical et de dispositifs médicaux, nous accompagnons les
-          professionnels de santé avec des solutions fiables, innovantes et
-          adaptées à leurs besoins. Nos domaines d’expertise couvrent un large
-          éventail, allant de la biopsie, la PCR en temps réel, le caryotype et
-          la cytogénétique, jusqu’à d’autres secteurs clés du diagnostic et de
-          la recherche biomédicale. Grâce à une veille constante et une
-          sélection rigoureuse de nos produits, nous nous engageons à garantir
-          performance, sécurité et qualité dans chaque équipement proposé.
+          {t("sectionTwoHomeKDSDescreption")}
         </p>
         <div className="w-full flex justify-end">
           <button
             onClick={() => Router.push(`/${locale}/products`)}
             className="flex cursor-pointer items-center gap-2 px-6 py-3 bg-red-700 text-white rounded-full hover:bg-gray-700 transition-all duration-300"
           >
-            <span>See Products</span>
+            <span>{t("See Products")} </span>
             <span className="transform transition-transform duration-300 group-hover:translate-x-2">
               <i className="text-lg">
                 <FaArrowRight />

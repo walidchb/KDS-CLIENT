@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import { LuHeadphones } from "react-icons/lu";
+import { useTranslations, useLocale } from "next-intl";
+
 import LogoKdsFooter from "../assets/svg/LogoKdsFooter.svg";
 import Loopergreyleftfooter from "../assets/svg/Loopergreyleftfooter.svg";
 import LooperRedRightFooter from "../assets/svg/LooperRedRightFooter.svg";
 import { VscSend } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
 
 // import LogoKdsFooterWeb from "../assets/svg/LogoKdsFooterWeb.svg";
 // import LogoKdsFooterMobile from "../assets/svg/LogoKdsFooterMobile.svg";
@@ -22,7 +23,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ showContact }) => {
-  // const t = useTranslations();
+  const t = useTranslations();
   const router = useRouter();
 
   const locale = useLocale();
@@ -37,23 +38,25 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
 
   const footerSections = [
     {
-      title: "About us",
-      items: [
-        "KDS est une entreprise algérienne spécialisée dans l’importation et la distribution de matériel médico-chirurgical, dispositifs médicaux, matériel de laboratoire et consommables scientifiques. Elle s’adresse aux professionnels de santé, laboratoires, centres de recherche et établissements hospitaliers.",
-      ],
+      title: t("About us"),
+      items: [t("KDS about paragraph")],
     },
     {
-      title: "Contacts",
+      title: t("Contacts"),
       items: [
         <div className="flex justify-start items-center" key="ContactsOne">
           <FiPhone className="" />{" "}
-          <span className="ml-2 text-gray-600 font-medium">Phone numbers</span>
+          <span className="ml-2 text-gray-600 font-medium">
+            {t("Phone numbers")}
+          </span>
         </div>,
         "+213 (0) 775 248 016",
         "+213 (0) 23 602 214",
         <div className="flex justify-start items-center" key="ContactsOne">
           <FiPhone />{" "}
-          <span className="ml-2 text-gray-600 font-medium">Fax number</span>
+          <span className="ml-2 text-gray-600 font-medium">
+            {t("Fax number")}
+          </span>
         </div>,
         "+213 (0) 22 602 213",
       ],
@@ -63,9 +66,11 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
       items: [
         <div className="flex justify-start items-center" key="ContactsOne">
           <IoLocationOutline />{" "}
-          <span className="ml-2 text-gray-600 font-medium">Localisation</span>
+          <span className="ml-2 text-gray-600 font-medium">
+            {t("Localisation")}
+          </span>
         </div>,
-        "Rue Omar Boursas Section 21 iLot 59 Local N01 RDC Kouba - Alger",
+        t("Rue Omar Boursas Section 21 iLot 59 Local N01 RDC Kouba - Alger"),
       ],
     },
     {
@@ -73,13 +78,13 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
       items: [
         <div className="flex justify-start items-center" key="ContactsOne">
           <MdOutlineEmail />{" "}
-          <span className="ml-2 text-gray-600 font-medium">E-mail</span>
+          <span className="ml-2 text-gray-600 font-medium">{t("E-mail")}</span>
         </div>,
         "kds@kdslabs.com",
 
         <div className="flex justify-start items-center" key="ContactsOne">
           <LuHeadphones />{" "}
-          <span className="ml-2 text-gray-600 font-medium">Sales</span>
+          <span className="ml-2 text-gray-600 font-medium">{t("Sales")}</span>
         </div>,
         "Sales@kdslabs.com",
       ],
@@ -97,12 +102,12 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
       {showContact && (
         <div className="absolute right-0 -top-[35px] w-full flex justify-center items-center">
           <div className="flex w-[90%] sm:w-[80%] justify-between items-center px-4 sm:px-20 h-[70px] rounded-xl bg-gray-600 text-white">
-            <h3 className="text-md sm:text-xl">Contact us via e-mail</h3>
+            <h3 className="text-md sm:text-xl">{t("Contact us via e-mail")}</h3>
             <button
               onClick={() => router.push(`/${locale}/contact`)}
               className="flex cursor-pointer items-center gap-2 px-2 sm:px-6 py-1 sm:py-3 bg-red-700 text-white rounded-full hover:bg-gray-700 transition-all duration-300"
             >
-              <span>Contact us</span>
+              <span>{t("Contact us")}</span>
               <span className="transform transition-transform duration-300 group-hover:translate-x-2">
                 <i className="text-lg">
                   <VscSend />
@@ -150,7 +155,7 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
             <a href="https://flowbite.com" className="hover:underline">
               KDS
             </a>
-            . All Rights Reserved.
+            {t("All rights")}{" "}
           </span>
         </div>
       </div>

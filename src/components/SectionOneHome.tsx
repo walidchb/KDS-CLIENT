@@ -4,7 +4,12 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const images = ["/photo4.jpg", "/photo1.jpg", "/photo2.jpg", "/photo3.jpg"];
+const images = [
+  "/Biopsie-medium.jpg",
+  "/Caryotype-medium.jpg",
+  "/cytogénétique-medium.jpg",
+  "/PCR-medium.jpg",
+];
 
 const SectionOne = () => {
   const [emblaRef, embla] = useEmblaCarousel({ loop: true });
@@ -32,7 +37,7 @@ const SectionOne = () => {
   }, [embla, onSelect]);
 
   return (
-    <div className="relative w-full h-[450px] ">
+    <div className="relative w-full h-[500px] ">
       <div className="overflow-hidden h-full relative" ref={emblaRef}>
         <div className="flex w-full h-full">
           {images.map((src, index) => (

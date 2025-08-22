@@ -6,8 +6,10 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import LooperRedTopLeftSectionThree from "../assets/svg/LooperRedTopLeftSectionThree.svg";
 import LooperGreyTopRightSectionThree from "../assets/svg/LooperGreyTopRightSectionThree.svg";
 import ProductsStore from "@/stores/products";
+import { useTranslations } from "next-intl";
 
 const ScaleCarousel = () => {
+  const t = useTranslations("");
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "center",
@@ -127,8 +129,8 @@ const ScaleCarousel = () => {
       {/* Carousel */}
       <div className="flex flex-col items-center justify-center w-[90%]  h-full">
         <p className="text-4xl font-bold text-center mb-12">
-          <span className="text-gray-700">Our</span>{" "}
-          <span className="text-red-700">Products</span>{" "}
+          <span className="text-gray-700">{t("Our")}</span>{" "}
+          <span className="text-red-700">{t("Products")} </span>{" "}
         </p>
         <div
           style={{ zIndex: 10 }}

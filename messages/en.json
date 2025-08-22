@@ -1,4 +1,5 @@
 {
+  "Our": "Our",
     "smartTools": "Smart Tools for Smarter Healthcare.",
     "welcomeBack": "Welcome Back!",
     "description": "A new day, a new opportunity to make a difference. Stay on top of your schedule and keep delivering the best care possible!",
@@ -11,6 +12,140 @@
       "placeholder": "Enter your password"
     },
     "login": "Login",
-    "Products": "Products"
+    "Products": "Products",
+    "Home": "Home",
+  "About us": "About us",
+  "Contact us": "Contact us",
+  "No products": "No products",
+  "View all products in": "View all products in",
+
+  "KDS about paragraph": "KDS is an Algerian company specialized in the import and distribution of medical-surgical equipment, medical devices, laboratory equipment and scientific consumables. It serves healthcare professionals, laboratories, research centers and hospitals.",
+
+  "Contacts": "Contacts",
+  "Phone numbers": "Phone numbers",
+  "Fax number": "Fax number",
+  "Localisation": "Location",
+  "Rue Omar Boursas Section 21 iLot 59 Local N01 RDC Kouba - Alger": "Rue Omar Boursas Section 21 iLot 59 Local N01 Ground Floor Kouba - Algiers",
+  "E-mail": "E-mail",
+  "Sales": "Sales",
+  "Contact us via e-mail": "Contact us via e-mail",
+  "All rights": "All rights reserved.",
+  "Showing": "Showing",
+  "of": "of",
+  "contact": {
+    "title": "Contact us",
+    "call_us": "Call us",
+    "availability": "We are available 24/7, 7 days a week.",
+    "write_us": "Write us",
+    "form_info": "Fill out our form and we will contact you within 24 hours."
+  },
+  "form": {
+    "placeholders": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message"
+    },
+    "send_message": "Send message",
+    "errors": {
+      "too_short": "Too Short!",
+      "too_long": "Too Long!",
+      "required": "Required",
+      "invalid_email": "Invalid email"
+    },
+    "sending": "Sending...",
+    "success_message": "✅ Your message has been sent successfully!",
+    "error_message": "❌ Failed to send message. Please try again later."
+  },
+  "about_kds": {
+    "summary": "Summary",
+    "about_kds": "About KDS",
+    "our_vision": "Our Vision",
+    "intervention_domains": "Fields of Intervention",
+    "supportsummary": "Support",
+    "bdcomsummary": "BDCOM",
+    "futuresummary": "Towards the Future",
+
+    "about": {
+      "title": "About KDS",
+      "paragraph1": "KDS is an Algerian company specialized in the import and distribution of medical-surgical equipment, medical devices, laboratory equipment, and scientific consumables. It serves healthcare professionals, laboratories, research centers, and hospitals.",
+      "paragraph2": "A subsidiary of BDCOM, founded in 1998, KDS offers high-quality technical solutions compliant with international standards."
+    },
+
+    "vision": {
+      "title": "Our Vision",
+      "list": [
+        "Reliability of equipment",
+        "Accessibility of cutting-edge technologies",
+        "Technical and human support"
+      ],
+      "paragraph": "We place listening, advice, training, and follow-up at the heart of our approach, aiming to become the reference partner for demanding professionals."
+    },
+
+    "domains": {
+      "title": "Our Fields of Intervention",
+      "biopsy": {
+        "title": "🔬 Biopsy",
+        "text": "Precise devices for tissue sampling, compatible with medical imaging. Needles, trocars, automatic guns, sterile kits, etc."
+      },
+      "karyotyping": {
+        "title": "🧬 Karyotyping",
+        "text": "Equipment for chromosomal analysis (mitotic & prenatal), Synchroset, microscopes, specialized reagents."
+      },
+      "qpcr": {
+        "title": "⚗️ Real-time PCR (qPCR)",
+        "text": "Solutions for genetics, hematopathology, microbiology. Thermal cyclers, qPCR kits, probes, and technical support."
+      },
+      "cytogenetics": {
+        "title": "🧫 Cytogenetics",
+        "text": "Specialized media, FISH probes, fluorescence microscopes, hybridization chambers, etc. For hematology, complex pathologies, microdeletions."
+      },
+      "lab_equipment": {
+        "title": "🧪 Laboratory Equipment",
+        "text": "Centrifuges, hoods, incubators, plate readers, autoclaves, ISO/CE equipment with local after-sales service."
+      },
+      "consumables": {
+        "title": "🧴 Consumables",
+        "text": "PCR tubes, tips, slides, gloves, biohazard bags, sterile protections... Compatible, reliable, compliant with standards."
+      }
+    },
+
+    "support": {
+      "title": "Comprehensive Support",
+      "list": [
+        "Needs analysis",
+        "Proposal of personalized technical solutions",
+        "Installation, training, technical support",
+        "Continuous availability of consumables & spare parts"
+      ],
+      "paragraph": "We place human relationships at the heart of our business: every client is a partner."
+    },
+
+    "bdcom": {
+      "title": "A Solid Foundation: BDCOM",
+      "text": "BDCOM, founded in 1998, is KDS’s parent company. With a strong international network and experience in medical equipment, it enabled the creation of KDS to meet the sector’s new technological needs."
+    },
+
+    "future": {
+      "title": "Together Towards the Future",
+      "text": "KDS aims to remain at the forefront of medical innovation in Algeria, with a skilled team, an evolving catalog, and close customer service."
+    }
+  },
+
+  "sectionTwoHomeKDSDescreption":"Specialized in the import and distribution of medical-surgical equipment and medical devices, we support healthcare professionals with reliable, innovative, and tailored solutions to meet their needs. Our expertise covers a wide range of fields, from biopsy, real-time PCR, karyotyping, and cytogenetics to other key areas of diagnostics and biomedical research. Through constant monitoring and a rigorous selection of our products, we are committed to ensuring performance, safety, and quality in every piece of equipment we provide.",
+  "See Products" : "See Products",
+  "category": "Category",
+  "sub-category": "Sub-category",
+  "search": "Search by name",
+  "No name available": "No name available.",
+  "Contact us for more information": "Contact us for more information",
+  "No Ref": "No Ref",
+  "No description available": "No description available.",
+  "No features listed": "No features listed.",
+  "Characteristics": "Characteristics",
+  "Steps": "Steps",
+  "Validated On": "Validated On",
+  "Technical Sheet": "Technical Sheet",
+  "No technical sheet available": "No technical sheet available."
+
   }
   

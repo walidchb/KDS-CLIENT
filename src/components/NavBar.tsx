@@ -340,7 +340,7 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
                                     )
                                   ) : (
                                     <span className="text-xs text-gray-500">
-                                      No products
+                                      {t("No products")}
                                     </span>
                                   )}
                                 </div>

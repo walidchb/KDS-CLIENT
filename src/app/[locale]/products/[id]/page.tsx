@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useLocale } from "next-intl";
 import useEmblaCarousel from "embla-carousel-react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaFileDownload } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import LooperRedBottomRightContact from "../../../../assets/svg/LooperRedBottomRightContact.svg";
 import LooperRedTopLeftContact from "../../../../assets/svg/LooperRedTopLeftContact.svg";
@@ -16,8 +16,11 @@ import { IColumnType, Table } from "@/components/Table";
 import TableLoader from "@/components/TableLoader";
 // import ProductCard from "@/components/ProductCard";
 import CategoryStore from "@/stores/category";
+import { useTranslations } from "next-intl";
 
 const Product = () => {
+  const t = useTranslations();
+
   const {
     // Dataproducts,
     // loadingProducts,
@@ -189,9 +192,23 @@ const Product = () => {
   //   return <div className="text-center py-10">Loading...</div>;
   // }
 
+  async function downloadFile(url: string, filename: string) {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename; // 👈 your custom filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(link.href); // cleanup
+  }
+
   const ProductDetailsSkeleton = () => {
     return (
-      <div className="min-h-screen relative flex flex-col justify-center items-center px-4 bg-white ">
+      <div className="min-h-screen relative  flex flex-col justify-center items-center px-4 bg-white ">
         <div className="w-[90%] mt-20 flex justify-start">
           <div className="flex mb-10 items-center">
             <div className="bg-gray-300 h-10 w-40 rounded mr-4" />
@@ -225,7 +242,7 @@ const Product = () => {
               ))}
             </ul>
 
-            <div className="w-full mt-4 space-y-2">
+            <div className="w-full mt-4 mb-8 space-y-2">
               {/* Simulated Table Skeleton */}
               <div className="bg-gray-200 h-8 w-full rounded" />
               <div className="bg-gray-100 h-6 w-full rounded" />
@@ -251,16 +268,25 @@ const Product = () => {
       ) : (
         <div className="min-h-screen relative flex flex-col justify-center items-center px-4 bg-cover bg-white">
           <div className="w-[90%] mt-20 flex justify-start">
-            <h3 className="flex justify-start mb-10 items-start">
+            <h3 className="flex justify-start mb-10 items-center">
               <span className="text-gray-600 mr-2 text-4xl font-semibold whitespace-nowrap">
-                Products /
+                {t("Products")} /
               </span>
-              <span className="text-red-700 text-2xl font-medium">
-                {productDetails.name}{" "}
-                <span className="text-gray-500">
-                  ({productDetails.ref || "No Ref"})
-                </span>
+
+              <span
+                className="text-red-700 text-2xl font-medium break-all"
+                style={{
+                  wordBreak: "break-all",
+                  overflowWrap: "break-word",
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                {productDetails.name || t("No name available")}
               </span>
+
+              {/* <span className="text-red-700 text-2xl font-medium">
+                {productDetails.name || t("No name available")} jhgfujkajdhfa
+                ioasdfuhsoijfghsdpfjgsdpfjgsdpfjsdp;fjbsd;kfjgsd;fj */}
             </h3>
           </div>
 
@@ -274,7 +300,7 @@ const Product = () => {
 
             <div className=" w-full flex mb-32 flex-col justify-center items-start">
               {productDetails?.ImageProduct?.length > 0 && (
-                <div className="w-full h-[400px] bg-gray-300 relative">
+                <div className="w-full h-[400px] bg-white relative">
                   <div className="overflow-hidden h-full" ref={emblaRef}>
                     <div className="flex h-full">
                       {productDetails?.ImageProduct.map(
@@ -307,13 +333,13 @@ const Product = () => {
                     onClick={scrollPrev}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-white shadow rounded-full z-10"
                   >
-                    <FaChevronLeft size={20} />
+                    <FaChevronLeft className="text-gray-600" size={20} />
                   </button>
                   <button
                     onClick={scrollNext}
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-white shadow rounded-full z-10"
                   >
-                    <FaChevronRight size={20} />
+                    <FaChevronRight className="text-gray-600" size={20} />
                   </button>
                 </div>
               )}
@@ -327,11 +353,14 @@ const Product = () => {
               </Link>
 
               <span className="text-3xl text-gray-500 mb-6 font-bold">
-                {productDetails?.name}
+                {productDetails?.name || t("No name available")}{" "}
+                <span className="text-gray-500 whitespace-nowrap">
+                  ({productDetails.ref || t("No Ref")}){/* </span> */}
+                </span>
               </span>
 
               <p className="text-black mb-6 text-sm font-semibold">
-                {productDetails?.description || "No description available."}
+                {productDetails?.description || t("No description available")}
               </p>
 
               <ul className="list-disc space-y-2 pl-5">
@@ -339,21 +368,23 @@ const Product = () => {
                   <li key={idx} className="text-black text-sm font-semibold">
                     {feature?.description}
                   </li>
-                )) || <li>No features listed.</li>}
+                )) || <li>{t("No features listed")}</li>}
               </ul>
 
               <div className="w-full my-4">
                 {loadingProductDetails ? (
                   <TableLoader />
                 ) : productDetails?.DynamicProduct?.length !== 0 ? (
-                  <Table
-                    data={transformData(
-                      productDetails?.DynamicProduct[0]?.fields
-                    )}
-                    columns={generateColumns(
-                      productDetails?.DynamicProduct[0]?.fields
-                    )}
-                  />
+                  productDetails.DynamicProduct.map((item, index) => {
+                    return (
+                      <div key={index} className="w-full my-4">
+                        <Table
+                          data={transformData(item.fields)}
+                          columns={generateColumns(item.fields)}
+                        />
+                      </div>
+                    );
+                  })
                 ) : null}
               </div>
 
@@ -361,7 +392,7 @@ const Product = () => {
                 (img) => img.customImage.type === 1
               ).length > 0 && (
                 <label className="block text-black font-bold my-8">
-                  Characteristics
+                  {t("Characteristics")}
                 </label>
               )}
               {productDetails?.customImages?.filter(
@@ -388,48 +419,45 @@ const Product = () => {
                 </div>
               )}
 
-              <div className="w-full text-black my-4 flex flex-wrap justify-between items-center">
-                {/* step one */}
-                {productDetails?.stepOne && (
-                  <div>
-                    <label className="block  font-bold my-4">Step One :</label>
-                    <div>{productDetails?.stepOne}</div>
-                  </div>
-                )}
+              {/* display steps images */}
 
-                {/* step two */}
-                {productDetails?.stepTwo && (
-                  <div>
-                    <label className="block  font-bold my-4">Step Two :</label>
-                    <div>{productDetails?.stepTwo}</div>
-                  </div>
-                )}
-
-                {/* step three */}
-                {productDetails?.stepThree && (
-                  <div>
-                    <label className="block  font-bold my-4">
-                      Step Three :
-                    </label>
-                    <div>{productDetails?.stepThree}</div>
-                  </div>
-                )}
-
-                {/* step four */}
-                {productDetails?.stepFour && (
-                  <div>
-                    <label className="block  font-bold my-4">Step Four :</label>
-                    <div>{productDetails?.stepFour}</div>
-                  </div>
-                )}
-              </div>
+              {productDetails?.customImages?.filter(
+                (img) => img.customImage.type === 3
+              ).length > 0 && (
+                <label className="block text-black font-bold my-8">
+                  {t("Steps")}
+                </label>
+              )}
+              {productDetails?.customImages?.filter(
+                (img) => img.customImage.type === 3
+              ).length > 0 && (
+                <div className="flex text-black flex-wrap flex-row gap-x-16 gap-y-8 justify-start items-start">
+                  {productDetails?.customImages
+                    .filter((img) => img.customImage.type === 3)
+                    .map((img, index) => (
+                      <div
+                        className="   flex flex-col items-center justify-center"
+                        key={index}
+                      >
+                        <img
+                          src={img.customImage.image}
+                          alt={`Characteristic Image ${index}`}
+                          className="rounded-lg h-60 w-60"
+                        />
+                        {/* <div className="text-center mt-1">
+                          {img.customImage.name}
+                        </div> */}
+                      </div>
+                    ))}{" "}
+                </div>
+              )}
 
               {/* machine images */}
               {productDetails?.customImages?.filter(
                 (img) => img.customImage.type === 1
               ).length > 0 && (
                 <label className="block text-black font-bold my-8">
-                  Validated On
+                  {t("Validated On")}
                 </label>
               )}
               {productDetails?.customImages?.length > 0 && (
@@ -453,6 +481,32 @@ const Product = () => {
                     ))}{" "}
                 </div>
               )}
+
+              <div className="flex text-black hover:text-blue-400 w-full justify-end gap-4 mt-6">
+                {/* <label className="block  font-bold my-8">Technical Sheet</label> */}
+                {productDetails?.technicalSheet ? (
+                  <div
+                    onClick={() => {
+                      if (typeof productDetails.technicalSheet === "string") {
+                        downloadFile(
+                          productDetails.technicalSheet,
+                          `${productDetails.name}-technical-sheet.pdf`
+                        );
+                      }
+                    }}
+                    className="flex flex-col items-center space-x-2 cursor-pointer"
+                  >
+                    <FaFileDownload className="w-12 h-12 mb-2" />
+                    <span className="hover:underline">
+                      {t("Technical Sheet")}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="text-gray-500">
+                    {t("No technical sheet available")}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

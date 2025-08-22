@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
-// import { useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import LooperRedBottomRightContact from "../../../assets/svg/LooperRedBottomRightContact.svg";
 import LooperRedTopLeftContact from "../../../assets/svg/LooperRedTopLeftContact.svg";
-// import "./style.css";
+
 import NavBar from "@/components/NavBar";
 import { CiSearch } from "react-icons/ci";
 import ProductsStore from "@/stores/products";
@@ -17,56 +18,15 @@ import Pagination from "@/components/Pagination";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function Products() {
-  // const t = useTranslations();
-
-  // const items = ["Apple", "Banana", "Cherry"];
-  // const [selectedItem, setSelectedItem] = useState<string | null>(null);
-
-  // const handleClear = () => {
-  //   console.log("Selection cleared!");
-  // };
-
-  // const products = Array.from({ length: 20 }, (_, index) => ({
-  //   name: `Product ${index + 1}`,
-  //   images: [
-  //     `https://picsum.photos/200/300?random=${index * 3 + 1}`,
-  //     `https://picsum.photos/200/300?random=${index * 3 + 2}`,
-  //     `https://picsum.photos/200/300?random=${index * 3 + 3}`,
-  //   ],
-  // }));
-
-  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  // const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
-  //   null
-  // );
+  const t = useTranslations();
 
   const [page, setpage] = useState(1);
   const searchParams = useSearchParams();
 
   const {
-    // Categories
-    // dataCategories,
     dataCategoriesNavBar,
-    // // loadingCategories,
-    // // Subcategories
-    // // dataSubcategories,
+
     dataSubcategoriesNavBar,
-    // loadingSubcategories,
-    // // CRUD states for Categories
-    // successAddCategory,
-    // successDeleteCategory,
-    // successPatchCategory,
-    // CRUD states for Subcategories
-    // successAddSubcategory,
-    // successDeleteSubcategory,
-    // successPatchSubcategory,
-    // Methods
-    // fetchCategories,
-    // fetchCategoriesNavBar,
-    // // fetchSubcategories,
-    // fetchSubcategoriesNavBar,
-    // resetAllStates,
-    // globalAlertNotification,
   } = CategoryStore();
   const {
     fetchDataCategories,
@@ -85,13 +45,9 @@ function Products() {
 
     successAddProduct,
     fetchDataProducts,
-
-    // globalAlertNotification,
   } = ProductsStore();
 
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const pageParam = searchParams.get("page");
 
   const updateQueryParams = (
     key: string,
@@ -108,7 +64,7 @@ function Products() {
     }
 
     if (resetPage) {
-      params.set("page", "1"); // Always reset page when a filter changes
+      params.set("page", "1");
     }
 
     router.push(`?${params.toString()}`);
@@ -118,29 +74,27 @@ function Products() {
 
   const handleNameChange = (value: string | null) => {
     setName(value || "");
-    // updateQueryParams("name", value);
+    if (value === null || value === "") {
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set("page", "1");
+      searchParams.delete("name");
+
+      router.push(`?${searchParams.toString()}`);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      updateQueryParams("name", name, true); // reset page
+      updateQueryParams("name", name, true);
     }
   };
 
   const handleCategoryChange = (value: string | null) => {
-    // const categoryId = dataCategories?.data.find(
-    //   (category: { name: string }) => category.name === value
-    // )?.id;
-    // setSelectedCategory(categoryId);
-    updateQueryParams("category", value, true); // reset page
+    updateQueryParams("category", value, true);
   };
 
   const handleSubCategoryChange = (value: string | null) => {
-    // const subCategoryId = dataSubcategories.find(
-    //   (subcategory: { name: string }) => subcategory.name === value
-    // )?.id;
-    // setSelectedSubCategory(subCategoryId);
-    updateQueryParams("subCategory", value, true); // reset page
+    updateQueryParams("subCategory", value, true);
   };
 
   const handlePageChange = (page: number) => {
@@ -163,8 +117,6 @@ function Products() {
     const subCategoryParam = searchParams.get("subCategory");
     const nameParam = searchParams.get("name");
 
-    // setSelectedCategory(categoryParam || null);
-    // setSelectedSubCategory(subCategoryParam || null);
     setName(nameParam || "");
 
     const page = pageParam ? parseInt(pageParam) : 1;
@@ -191,7 +143,6 @@ function Products() {
 
   useEffect(() => {
     if (searchParams.get("category")) {
-      // console.log("cat", selectedCategory);
       const catId = dataCategoriesNavBar?.find(
         (category: { name: string }) =>
           category.name == searchParams.get("category")
@@ -200,19 +151,11 @@ function Products() {
     }
   }, [searchParams.get("category")]);
 
-  // useEffect(() => {
-  //   console.log("data prdycsdk");
-  //   console.log(Dataproducts.data);
-  // }, [Dataproducts]);
-
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const pageParam = searchParams.get("page");
     const categoryParam = searchParams.get("category");
     const subCategoryParam = searchParams.get("subCategory");
-
-    // setSelectedCategory(categoryParam || null);
-    // setSelectedSubCategory(subCategoryParam || null);
 
     const page = pageParam ? parseInt(pageParam) : 1;
 
@@ -227,36 +170,18 @@ function Products() {
       categoryParam ? `&categoryId=${categoryId}` : ""
     }${subCategoryParam ? `&subCategoryId=${subCategoryId}` : ""}`;
 
-    console.log("add", successAddProduct);
-    console.log("delete", successDelete);
-    console.log("patch", successPatch);
     if (successAddProduct || successDelete || successPatch) {
-      console.log("kmlna");
       fetchDataProducts(query);
     }
-    // if (successPatch) {
-    // fetchDataProducts(query);}
   }, [successAddProduct, successPatch, successDelete]);
-
-  // useEffect(() => {
-  //   if (successAddProduct ) {
-  //     fetchDataProducts(`/products/pagination?page=1&limit=20`);
-  //     setAddEditModal(false);
-  //   }
-  // }, [successAddProduct, successPatch, successDelete]);
 
   return (
     <div>
-      <NavBar
-      // currentScreen={2}
-      // categories={dataCategoriesNavBar || []}
-      // products={Dataproducts?.data || []}
-      // subCategories={dataSubcategoriesNavBar || []}
-      />
+      <NavBar />
       <div className="min-h-screen relative flex flex-col justify-center items-center px-4   bg-cover  bg-white">
         <div className="w-[90%] mt-20  flex justify-start ">
           <h3 className="text-gray-600 mb-10 text-4xl font-semibold">
-            Products
+            {t("Products")}
           </h3>
         </div>
         <div className="w-[90%]  flex justify-center items-center">
@@ -279,37 +204,40 @@ function Products() {
             >
               <InputWithIcon
                 onKeyDown={handleKeyDown}
-                // label="Search"
                 icon={<CiSearch className="text-gray-600" />}
-                placeholder={"search product"}
+                placeholder={t("Search by name")}
                 type="text"
-                id="email"
-                name="email"
+                id="searchProduct"
+                name="searchProduct"
                 className="min-w-[300px]  w-full sm:w-[48%] lg:w-[30%]"
                 value={name}
                 onChange={(e: { target: { value: string | null } }) =>
                   handleNameChange(e.target.value)
-                } // Replace setValue with onChange
+                }
               />
 
               <Dropdown
                 className="min-w-[300px]  w-full sm:w-[48%] lg:w-[30%]"
-                placeholder={"Category"}
+                placeholder={t("category")}
                 items={
                   dataCategories?.data?.map(
                     (category: { name: string }) => category.name
                   ) || []
                 }
+                onClear={() => {
+                  handleCategoryChange(null);
+                  handleSubCategoryChange(null);
+                  router.push(`?page=${page}&&name=${name}`);
+                }}
                 value={searchParams.get("category")}
                 setValue={handleCategoryChange}
-                // onClear={handleClear}
               />
               {(searchParams.get("category") ||
                 searchParams.get("subCategory") ||
                 dataSubcategories?.length != 0) && (
                 <Dropdown
                   className="min-w-[300px]  w-full sm:w-[48%] lg:w-[30%]"
-                  placeholder={"sous-catégorie"}
+                  placeholder={t("sub-category")}
                   items={
                     dataSubcategories?.map(
                       (subcategory: { name: string }) => subcategory.name
@@ -317,7 +245,6 @@ function Products() {
                   }
                   value={searchParams.get("subCategory")}
                   setValue={handleSubCategoryChange}
-                  // onClear={handleClear}
                 />
               )}
             </div>
@@ -327,11 +254,7 @@ function Products() {
                 className="flex flex-wrap gap-8 justify-center items-center mt-10"
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]?.map(
-                  (
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    product: any,
-                    index: React.Key | null | undefined
-                  ) => (
+                  (product: any, index: React.Key | null | undefined) => (
                     <div
                       key={index}
                       className={`relative w-80 h-70 cursor-pointer overflow-hidden rounded-lg shadow-lg bg-gray-100 animate-pulse`}
@@ -355,11 +278,7 @@ function Products() {
                 className="flex flex-wrap gap-8 justify-center items-center mt-10"
               >
                 {Dataproducts?.data?.map(
-                  (
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    product: any,
-                    index: React.Key | null | undefined
-                  ) => (
+                  (product: any, index: React.Key | null | undefined) => (
                     <ProductCard key={index} product={product} />
                   )
                 )}

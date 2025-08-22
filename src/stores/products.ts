@@ -58,10 +58,7 @@ interface AppState {
                 type: number; // Assuming type is a number
             };
         }>;
-        stepOne?: string;
-        stepTwo?: string;
-        stepThree?: string;
-        stepFour?: string;
+       technicalSheet: string;
     };
     successProductDetails: boolean;
     errorGetProductDetails: string | null;
@@ -157,10 +154,7 @@ const ProductsStore = create<AppState>((set) => ({
         ],
         ImageProduct: [],
         customImages: [],
-        stepOne: "",
-        stepTwo: "",
-        stepThree: "",
-        stepFour: "",
+       technicalSheet: "",
     },
     successProductDetails: false,
     errorGetProductDetails: null,
@@ -213,11 +207,11 @@ const ProductsStore = create<AppState>((set) => ({
     },
 
     fetchDataProducts: async (endpoint) => {
-        console.log("hiii");
+        
         try {
             set({ loadingProducts: true, errorGetProducts: null,successProducts:false });
             const response = await fetchData(endpoint);
-console.log("products", response.data);
+
             set({ Dataproducts: response.data, loadingProducts: false,successProducts:true });
         } catch (error: unknown) {
             set({ errorGetProducts: error instanceof Error ? error.message : String(error), loadingProducts: false ,successProducts:false});
@@ -267,10 +261,7 @@ console.log("products", response.data);
             ],
             ImageProduct: [],
             customImages: [],
-            stepOne: "",
-            stepTwo: "",
-            stepThree: "",
-            stepFour: "",
+            technicalSheet: "",
         }, errorGetProductDetails: null, loadingProductDetails: false });
     },
     resetDynamicTable: () => {
