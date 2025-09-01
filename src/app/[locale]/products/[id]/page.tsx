@@ -359,13 +359,13 @@ const Product = () => {
                 </span>
               </span>
 
-              <p className="text-black mb-6 text-sm font-semibold">
+              <p className="text-black mb-6  ">
                 {productDetails?.description || t("No description available")}
               </p>
 
               <ul className="list-disc space-y-2 pl-5">
                 {productDetails?.ListDescription?.map((feature, idx) => (
-                  <li key={idx} className="text-black text-sm font-semibold">
+                  <li key={idx} className="text-black  ">
                     {feature?.description}
                   </li>
                 )) || <li>{t("No features listed")}</li>}
@@ -398,7 +398,7 @@ const Product = () => {
               {productDetails?.customImages?.filter(
                 (img) => img.customImage.type === 1
               ).length > 0 && (
-                <div className="flex text-black flex-wrap flex-row gap-x-16 gap-y-8 justify-start items-start">
+                <div className="flex text-black flex-wrap flex-row gap-x-28 gap-y-12 justify-start items-start">
                   {productDetails?.customImages
                     .filter((img) => img.customImage.type === 1)
                     .map((img, index) => (
@@ -409,7 +409,7 @@ const Product = () => {
                         <img
                           src={img.customImage.image}
                           alt={`Characteristic Image ${index}`}
-                          className="rounded-lg h-60 w-60"
+                          className="rounded-lg h-52 w-52"
                         />
                         <div className="text-center mt-1">
                           {img.customImage.name}
@@ -431,7 +431,7 @@ const Product = () => {
               {productDetails?.customImages?.filter(
                 (img) => img.customImage.type === 3
               ).length > 0 && (
-                <div className="flex text-black flex-wrap flex-row gap-x-16 gap-y-8 justify-start items-start">
+                <div className="flex text-black flex-wrap flex-row gap-x-28 gap-y-12 justify-start items-start">
                   {productDetails?.customImages
                     .filter((img) => img.customImage.type === 3)
                     .map((img, index) => (
@@ -442,7 +442,7 @@ const Product = () => {
                         <img
                           src={img.customImage.image}
                           alt={`Characteristic Image ${index}`}
-                          className="rounded-lg h-60 w-60"
+                          className="rounded-lg h-60 w-80"
                         />
                         {/* <div className="text-center mt-1">
                           {img.customImage.name}
@@ -461,7 +461,7 @@ const Product = () => {
                 </label>
               )}
               {productDetails?.customImages?.length > 0 && (
-                <div className="flex text-black flex-wrap flex-row gap-x-16 gap-y-8 justify-start items-start">
+                <div className="flex text-black flex-wrap flex-row gap-x-22 gap-y-12 justify-start items-start">
                   {productDetails?.customImages
                     .filter((img) => img.customImage.type === 2)
                     .map((img, index) => (

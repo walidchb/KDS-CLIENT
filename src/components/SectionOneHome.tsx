@@ -41,7 +41,7 @@ const SectionOne = () => {
       <div className="overflow-hidden h-full relative" ref={emblaRef}>
         <div className="flex w-full h-full">
           {images.map((src, index) => (
-            <div key={index} className="relative w-full h-full flex-shrink-0">
+            <div key={index} className="relative w-full h-full flex-shrink-0 ">
               <Image
                 src={src}
                 alt={`Slide ${index + 1}`}

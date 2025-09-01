@@ -61,8 +61,7 @@ function Contact() {
                 <p className="text-gray-400 mb-2 text-sm">
                   {t("contact.form_info")}
                 </p>
-                <p>kds@kdslabs.com</p>
-                <p>Sales@kdslabs.com</p>
+                <p>cmkdslabs@gmail.com</p>
               </div>
             </div>
 

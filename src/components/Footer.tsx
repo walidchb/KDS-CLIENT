@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
-import { LuHeadphones } from "react-icons/lu";
 import { useTranslations, useLocale } from "next-intl";
 
 import LogoKdsFooter from "../assets/svg/LogoKdsFooter.svg";
@@ -80,13 +79,7 @@ const Footer: React.FC<FooterProps> = ({ showContact }) => {
           <MdOutlineEmail />{" "}
           <span className="ml-2 text-gray-600 font-medium">{t("E-mail")}</span>
         </div>,
-        "kds@kdslabs.com",
-
-        <div className="flex justify-start items-center" key="ContactsOne">
-          <LuHeadphones />{" "}
-          <span className="ml-2 text-gray-600 font-medium">{t("Sales")}</span>
-        </div>,
-        "Sales@kdslabs.com",
+        "cmkdslabs@gmail.com",
       ],
     },
   ];
