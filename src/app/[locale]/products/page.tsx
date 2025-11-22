@@ -131,8 +131,10 @@ function Products() {
     const query = `/products/pagination?page=${page}${
       categoryParam ? `&categoryId=${categoryId}` : ""
     }${subCategoryParam ? `&subCategoryId=${subCategoryId}` : ""}${
-      name ? `&name=${nameParam}` : ``
+      nameParam ? `&name=${nameParam}` : ``
     } `;
+
+    console.log("PRODUCTS QUERY: ", query);
 
     fetchDataProducts(query);
   }, [searchParams.toString()]);

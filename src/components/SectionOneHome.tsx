@@ -10,11 +10,30 @@ const images = [
   "/cytogénétique-medium.jpg",
   "/PCR-medium.jpg",
 ];
+const imagesMobile = [
+  "/Biopsie-Esmall.jpg",
+  "/Caryotype-Esmall.jpg",
+  "/cytogénétique-Esmall.jpg",
+  "/PCR-Esmall.jpg",
+];
 
 const SectionOne = () => {
   const [emblaRef, embla] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      // Assuming a breakpoint of 768px (Tailwind's 'md')
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Select the correct image set
+  const currentImages = isMobile ? imagesMobile : images;
   // Auto play effect
   useEffect(() => {
     if (!embla) return;
@@ -37,17 +56,17 @@ const SectionOne = () => {
   }, [embla, onSelect]);
 
   return (
-    <div className="relative w-full h-[500px] ">
+    <div className="relative w-full h-[550px] ">
       <div className="overflow-hidden h-full relative" ref={emblaRef}>
         <div className="flex w-full h-full">
-          {images.map((src, index) => (
-            <div key={index} className="relative w-full h-full flex-shrink-0 ">
+          {currentImages.map((src, index) => (
+            <div key={index} className="relative w-full h-full  flex-shrink-0 ">
               <Image
                 src={src}
                 alt={`Slide ${index + 1}`}
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover "
                 priority={index === 0} // Optimize loading for the first image
               />
             </div>

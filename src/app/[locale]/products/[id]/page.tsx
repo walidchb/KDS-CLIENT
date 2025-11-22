@@ -256,25 +256,20 @@ const Product = () => {
   };
 
   return (
-    <div>
-      <NavBar
-      // currentScreen={2}
-      // categories={dataCategoriesNavBar || []}
-      // products={Dataproducts?.data || []}
-      // subCategories={dataSubcategoriesNavBar || []}
-      />
+    <div className="w-full">
+      <NavBar />
       {loadingProductDetails ? (
         ProductDetailsSkeleton()
       ) : (
-        <div className="min-h-screen relative flex flex-col justify-center items-center px-4 bg-cover bg-white">
-          <div className="w-[90%] mt-20 flex justify-start">
+        <div className="min-h-screen  relative flex flex-col justify-center items-center px-4 bg-cover bg-white">
+          <div className="   w-[90%] mt-20 flex justify-start">
             <h3 className="flex justify-start mb-10 items-center">
-              <span className="text-gray-600 mr-2 text-4xl font-semibold whitespace-nowrap">
+              <span className="text-gray-600 mr-2 text-lg md:text-4xl font-semibold whitespace-nowrap">
                 {t("Products")} /
               </span>
 
               <span
-                className="text-red-700 text-2xl font-medium break-all"
+                className="text-red-700 text-lg md:text-2xl font-medium break-all"
                 style={{
                   wordBreak: "break-all",
                   overflowWrap: "break-word",
@@ -290,7 +285,7 @@ const Product = () => {
             </h3>
           </div>
 
-          <div className="w-[90%] flex justify-center items-center">
+          <div className="sm:w-[90%] flex justify-center items-center overflow-hidden">
             <div className="absolute top-[40px] right-0 z-10">
               <LooperRedBottomRightContact />
             </div>
@@ -309,14 +304,9 @@ const Product = () => {
                           index: React.Key | null | undefined
                         ) => (
                           <div
-                            className="min-w-full  h-full flex justify-center"
+                            className=" sm:min-w-full  h-[60%] flex justify-center"
                             key={index}
                           >
-                            {/* <Image
-                    src={src?.image}
-                    alt={`Slide ${index}`}
-                    className="rounded-lg object-cover"
-                  /> */}
                             <img
                               src={src?.image}
                               alt={`Slide ${index}`}
@@ -328,7 +318,6 @@ const Product = () => {
                     </div>
                   </div>
 
-                  {/* Navigation buttons */}
                   <button
                     onClick={scrollPrev}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-white shadow rounded-full z-10"
@@ -344,13 +333,40 @@ const Product = () => {
                 </div>
               )}
 
-              <Link
-                href={`/${locale}/contact`}
-                className="my-4 flex hover:underline text-red-700 text-lg font-medium justify-start items-center"
-              >
-                <span className="mr-2">Contact us for more information</span>
-                <FaArrowRightLong />
-              </Link>
+              <div className="flex  justify-between items-center w-full">
+                <Link
+                  href={`/${locale}/contact`}
+                  className="my-4 flex hover:underline text-red-700 text-lg font-medium whitespace-nowrap justify-start items-center"
+                >
+                  <span className="mr-2">Contact us for more information</span>
+                  <FaArrowRightLong />
+                </Link>
+
+                <div className="hidden md:flex text-black hover:text-blue-400 w-full justify-end gap-4 mt-6">
+                  {productDetails?.technicalSheet ? (
+                    <div
+                      onClick={() => {
+                        if (typeof productDetails.technicalSheet === "string") {
+                          downloadFile(
+                            productDetails.technicalSheet,
+                            `${productDetails.name}-technical-sheet.pdf`
+                          );
+                        }
+                      }}
+                      className="flex flex-col items-center space-x-2 cursor-pointer"
+                    >
+                      <FaFileDownload className="  md:w-12 md:h-12 mb-2" />
+                      <span className="hover:underline">
+                        {t("Technical Sheet")}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="text-gray-500">
+                      {t("No technical sheet available")}
+                    </div>
+                  )}
+                </div>
+              </div>
 
               <span className="text-3xl text-gray-500 mb-6 font-bold">
                 {productDetails?.name || t("No name available")}{" "}
@@ -398,7 +414,7 @@ const Product = () => {
               {productDetails?.customImages?.filter(
                 (img) => img.customImage.type === 1
               ).length > 0 && (
-                <div className="flex text-black flex-wrap flex-row gap-x-28 gap-y-12 justify-start items-start">
+                <div className="flex text-black flex-wrap flex-row gap-x-28 gap-y-12 justify-center items-center md:justify-start md:items-start">
                   {productDetails?.customImages
                     .filter((img) => img.customImage.type === 1)
                     .map((img, index) => (
@@ -409,7 +425,7 @@ const Product = () => {
                         <img
                           src={img.customImage.image}
                           alt={`Characteristic Image ${index}`}
-                          className="rounded-lg h-52 w-52"
+                          className="rounded-lg h-30 w-30"
                         />
                         <div className="text-center mt-1">
                           {img.customImage.name}
@@ -431,7 +447,7 @@ const Product = () => {
               {productDetails?.customImages?.filter(
                 (img) => img.customImage.type === 3
               ).length > 0 && (
-                <div className="flex text-black flex-wrap flex-row gap-x-28 gap-y-12 justify-start items-start">
+                <div className="flex text-black flex-wrap flex-row gap-x-28 gap-y-12 justify-center items-center md:justify-start md:items-start">
                   {productDetails?.customImages
                     .filter((img) => img.customImage.type === 3)
                     .map((img, index) => (
@@ -442,7 +458,7 @@ const Product = () => {
                         <img
                           src={img.customImage.image}
                           alt={`Characteristic Image ${index}`}
-                          className="rounded-lg h-60 w-80"
+                          className="rounded-lg h-34 w-48"
                         />
                         {/* <div className="text-center mt-1">
                           {img.customImage.name}
@@ -461,7 +477,7 @@ const Product = () => {
                 </label>
               )}
               {productDetails?.customImages?.length > 0 && (
-                <div className="flex text-black flex-wrap flex-row gap-x-22 gap-y-12 justify-start items-start">
+                <div className="flex text-black flex-wrap flex-row gap-x-22 gap-y-12 justify-center items-center md:justify-start md:items-start">
                   {productDetails?.customImages
                     .filter((img) => img.customImage.type === 2)
                     .map((img, index) => (
@@ -472,7 +488,7 @@ const Product = () => {
                         <img
                           src={img.customImage.image}
                           alt={`Characteristic Image ${index}`}
-                          className="rounded-lg h-60 w-60"
+                          className="rounded-lg h-30 w-30"
                         />
                         <div className="text-center mt-1">
                           {img.customImage.name}
@@ -482,8 +498,7 @@ const Product = () => {
                 </div>
               )}
 
-              <div className="flex text-black hover:text-blue-400 w-full justify-end gap-4 mt-6">
-                {/* <label className="block  font-bold my-8">Technical Sheet</label> */}
+              <div className="flex md:hidden text-black hover:text-blue-400 w-full justify-end gap-4 mt-6">
                 {productDetails?.technicalSheet ? (
                   <div
                     onClick={() => {
@@ -496,7 +511,7 @@ const Product = () => {
                     }}
                     className="flex flex-col items-center space-x-2 cursor-pointer"
                   >
-                    <FaFileDownload className="w-12 h-12 mb-2" />
+                    <FaFileDownload className="  w-12 h-12 mb-2" />
                     <span className="hover:underline">
                       {t("Technical Sheet")}
                     </span>

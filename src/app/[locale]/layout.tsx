@@ -67,7 +67,7 @@ export default async function RootLayout({
   const messages = await getMessages();
   return (
     <html lang={validLocale}>
-      <body className={` font-sans`}>
+      <body className={` font-sans max-w-[100vw]`}>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

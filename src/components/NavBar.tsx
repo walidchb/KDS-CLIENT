@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import FrIcon from "../assets/svg/fr.svg";
 import EnIcon from "../assets/svg/uk.svg";
 import LogoKdsNavBarWeb from "../assets/svg/LogoKdsNavBarWeb.svg";
@@ -11,10 +11,13 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
+import { IoMdSearch } from "react-icons/io";
+
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import ProductsStore from "@/stores/products";
 import CategoryStore from "@/stores/category";
+import Modal from "./Modal";
 
 interface Category {
   id: string;
@@ -179,8 +182,11 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
   const t = useTranslations();
   const locale = useLocale();
   const pathName = usePathname();
+  const router = useRouter();
+
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [toggledDropdown, setToggledDropdown] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const productslocal = localStorage.getItem("productsNavBar")
     ? JSON.parse(localStorage.getItem("productsNavBar") || "[]")
@@ -229,6 +235,8 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
     ...productNavItems,
     ...staticNav.slice(1, 3),
   ];
+
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   return (
     <Disclosure as="nav" className="bg-gray-100" style={{ zIndex: 200 }}>
@@ -356,6 +364,12 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
                             </div>
                           );
                         })}
+                        <Link
+                          href={`/${locale}/products?category=${item.name}`}
+                          className="text-xs text-blue-500 hover:underline mt-2 inline-block"
+                        >
+                          {t("View all products in")} {item.name}
+                        </Link>
                       </div>
                     )}
                 </div>
@@ -369,6 +383,12 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
                 </div>
                 <span className="ml-2">{locale === "en" ? "Fr" : "Eng"}</span>
               </Link>
+              <button
+                onClick={() => setSearchModalOpen(true)}
+                className="flex items-center text-black hover:text-blue-500 hover:underline cursor-pointer"
+              >
+                <IoMdSearch size={30} />
+              </button>
             </div>
           </div>
         </div>
@@ -471,6 +491,12 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
                             </div>
                           );
                         })}
+                        <Link
+                          href={`/${locale}/products?category=${item.name}`}
+                          className="text-xs text-blue-500 hover:underline mt-2 inline-block"
+                        >
+                          {t("View all products in")} {item.name}
+                        </Link>
                       </div>
                     )}
                     <div className="w-full h-[0.5px] my-4 bg-gray-200"></div>
@@ -504,8 +530,39 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen }) => {
             </div>
             <span className="ml-2">{locale === "en" ? "Fr" : "Eng"}</span>
           </Link>
+          <div className="w-full h-[0.5px] my-4 bg-gray-200"></div>
+          <button
+            onClick={() => {
+              setSearchModalOpen(true);
+            }}
+            className="flex items-center text-black hover:text-blue-500 hover:underline cursor-pointer"
+          >
+            <IoMdSearch size={30} /> <span className="ml-2">{t("Search")}</span>
+          </button>
         </div>
       </DisclosurePanel>
+
+      {searchModalOpen && (
+        <Modal className="w-auto" onClose={() => setSearchModalOpen(false)}>
+          <input
+            type="text"
+            placeholder="Type something to search..."
+            className="w-[90vw] md:w-[40vw] text-black border border-blue-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-blue-500 my-4"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                const q = searchQuery.trim();
+                if (!q) return;
+                router.push(
+                  `/${locale}/products?name=${encodeURIComponent(q)}`
+                );
+                setSearchModalOpen(false);
+              }
+            }}
+          />
+        </Modal>
+      )}
     </Disclosure>
   );
 };

@@ -14,7 +14,7 @@ const SectionTwo = () => {
   const Router = useRouter();
   const locale = useLocale();
   return (
-    <div className="w-full bg-gray-100 h-[550px] px-[20px] md:px[100px] lg:px-[200px] relative">
+    <div className="w-full bg-gray-100 mt-28 sm:mt-0 h-[550px] px-[20px] md:px[100px] lg:px-[200px] relative">
       <div style={{ zIndex: 1, position: "absolute", bottom: "0", left: "0" }}>
         <LoopersectiontwogreyleftBottom />
       </div>

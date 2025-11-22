@@ -81,7 +81,7 @@ const Home: FC = () => {
   //   fetchSubcategoriesNavBar("/subcategories/"); // Replace with your real endpoint
   // };
   return (
-    <div className="w-full ">
+    <div className="w-full bg-gray-100">
       <NavBar
         currentScreen={1}
         // categories={dataCategoriesNavBar || []}
