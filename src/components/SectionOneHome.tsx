@@ -32,7 +32,6 @@ const SectionOne = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Select the correct image set
   const currentImages = isMobile ? imagesMobile : images;
   // Auto play effect
   useEffect(() => {
