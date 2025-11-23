@@ -7,13 +7,13 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const images = [
   "/Biopsie-medium.jpg",
   "/Caryotype-medium.jpg",
-  "/cytogénétique-medium.jpg",
+  "/Cytogeneetique-medium.jpg",
   "/PCR-medium.jpg",
 ];
 const imagesMobile = [
   "/Biopsie-Esmall.jpg",
   "/Caryotype-Esmall.jpg",
-  "/cytogénétique-Esmall.jpg",
+  "/Cytogenetique-Esmall.jpg",
   "/PCR-Esmall.jpg",
 ];
 
